@@ -8,60 +8,61 @@
 
 <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
 
+:Biocypherroot rdf:type owl:Class
+        rdfs:label "Biocypherroot" .
+
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#is_relative
 :is_relative rdf:type owl:ObjectProperty ;
-          rdfs:domain :Person ;
-          rdfs:range :Person .
+        rdfs:label "is_relative" ;
+        rdfs:subClassOf :Biocypherroot ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#has_partner
 :has_partner rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :is_relative ;
-          rdfs:domain :Person ;
-          rdfs:range :Person .
+        rdfs:label "has_partner" ;
+        rdfs:subPropertyOf :is_relative ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/child_of
 :child_of rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :is_relative ;
-          owl:inverseOf :parent_of ;
-          rdfs:domain :Person ;
-          rdfs:range :Person .
+        rdfs:label "child_of" ;
+        rdfs:subPropertyOf :is_relative ;
+        owl:inverseOf :parent_of ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/son_of
 :son_of rdf:type owl:ObjectProperty ;
+        rdfs:label "son_of" ;
         rdfs:subPropertyOf :child_of ;
         owl:inverseOf :parent_of ;
         rdfs:domain :Male ;
         rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/daugther_of
 :daugther_of rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :child_of ;
-             owl:inverseOf :parent_of ;
-             rdfs:domain :Female ;
-             rdfs:range :Person .
+        rdfs:label "daugther_of"
+        rdfs:subPropertyOf :child_of ;
+        owl:inverseOf :parent_of ;
+        rdfs:domain :Female ;
+        rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parent_of
 :parent_of rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf :is_relative ;
-           owl:inverseOf :child_of ;
-           rdfs:domain :Person ;
-           rdfs:range :Person .
+        rdfs:label "parent_of"
+        rdfs:subPropertyOf :is_relative ;
+        owl:inverseOf :child_of ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Biocypherroot
-:Biocypherroot rdf:type owl:Class .
 
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Father
 :Father rdf:type owl:Class ;
+        rdfs:label "Father" ;
         owl:equivalentClass [ owl:intersectionOf ( :Male
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parent_of ;
@@ -73,18 +74,18 @@
         rdfs:subClassOf :Parent .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Female
 :Female rdf:type owl:Class ;
+        rdfs:label "Female" ;
         rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Male
 :Male rdf:type owl:Class ;
+      rdfs:label "Male" ;
       rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Mother
 :Mother rdf:type owl:Class ;
+        rdfs:label "Mother" ;
         owl:equivalentClass [ owl:intersectionOf ( :Female
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parent_of ;
@@ -96,16 +97,16 @@
         rdfs:subClassOf :Parent .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Parent
 :Parent rdf:type owl:Class ;
+        rdfs:label "Parent" ;
         rdfs:subClassOf :Role .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Person
 :Person rdf:type owl:Class ;
+        rdfs:label "Person" ;
         rdfs:subClassOf :Biocypherroot .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Role
 :Role rdf:type owl:Class ;
+      rdfs:label "Role"
       rdfs:subClassOf :Biocypherroot .

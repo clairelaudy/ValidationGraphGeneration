@@ -8,19 +8,28 @@
 
 <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
 
+:Biocypherroot rdf:type owl:Class ;
+        rdfs:label "Biocypherroot" .
+
+:owl:ObjectProperty a owl:Class ;
+        rdfs:label "ObjectProperty" ;
+        rdfs:subClassOf :Biocypherroot .
+
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/child_of
-:child_of rdf:type owl:ObjectProperty ;
-          owl:inverseOf :parent_of ;
+:childOff rdf:type owl:ObjectProperty ;
+          rdfs:subClassOf :Biocypherroot ;
+          rdfs:label "childOf" ;
+          owl:inverseOf :parentOf ;
           rdfs:domain :Person ;
           rdfs:range :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parent_of
-:parent_of rdf:type owl:ObjectProperty ;
+:parentOf rdf:type owl:ObjectProperty ;
+           rdfs:label "parentOf" ;
+           rdfs:subClassOf :Biocypherroot ;
            rdfs:domain :Person ;
            rdfs:range :Person .
 
@@ -29,8 +38,8 @@
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Father
 :Father rdf:type owl:Class ;
+        rdfs:label "Father" ;
         owl:equivalentClass [ owl:intersectionOf ( :Male
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parent_of ;
@@ -42,18 +51,18 @@
         rdfs:subClassOf :Parent .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Female
 :Female rdf:type owl:Class ;
+        rdfs:label "Female" ;
         rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Male
 :Male rdf:type owl:Class ;
-      rdfs:subClassOf :Person .
+        rdfs:label "Male" ;
+        rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Mother
 :Mother rdf:type owl:Class ;
+        rdfs:label "Mother" ;
         owl:equivalentClass [ owl:intersectionOf ( :Female
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parent_of ;
@@ -65,21 +74,18 @@
         rdfs:subClassOf :Parent .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Role
 :Role rdf:type owl:Class ;
-      rdfs:subClassOf :Biocypherroot .
+        rdfs:label "Role" ;
+        rdfs:subClassOf :Biocypherroot .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Biocypherroot
-:Biocypherroot rdf:type owl:Class .
 
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Parent
 :Parent rdf:type owl:Class ;
+        rdfs:label "Parent" ;
         rdfs:subClassOf :Role .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Person
 :Person rdf:type owl:Class ;
+        rdfs:label "Person"
         rdfs:subClassOf :Biocypherroot .
 
