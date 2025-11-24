@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
 
 	#Data to be exported
-	df = pd.DataFrame(columns=["name", "genre", "is_child_of"])
+	df = pd.DataFrame(columns=["name", "genre", "age", "partner", "children", "pets", "rents", "owner"])
 
 	#create nf male to be fathers individuals
 	for n in range(int(args.nb_fathers)):

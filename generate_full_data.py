@@ -16,7 +16,7 @@ def generate_person(
 	age_min:int ,
 	age_max:int ,
 	last_name:str ,
-	):
+	) -> (dict, pd.DataFrame):
 	
 	if age_max > 0 :
 		age_min=max(age_min, 0)
@@ -56,7 +56,6 @@ def generate_person(
 		if age > 20 and random.choice(range(2)):
 			#randomly decide how many children he has
 			nb_children = random.choice(range(4))
-			print("nb_children = ", nb_children)
 
 			for new_child in range(nb_children):
 				new_child = None
@@ -74,8 +73,6 @@ def generate_person(
 			nb_pets = random.choice(range(3))
 			for p in range(nb_pets):
 				pets.append(''.join([petname.Generate(2, '_'), "(", random.choice(["cat", "dog"]), ")"]))
-			
-
 	
 		df_data = pd.concat([df_data, pd.DataFrame([person])], ignore_index=True)
 		return person, df_data
