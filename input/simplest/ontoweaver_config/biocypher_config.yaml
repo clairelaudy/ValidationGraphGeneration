@@ -1,13 +1,13 @@
 biocypher:
     debug: true
     offline: true
-    schema_config_path: schema_config.yaml
+    dbms: owl
 
     # Ontology configuration
     head_ontology:
-        url: simplest_input_ontology ttl
+        url: input/simplest/simplest_input_ontology.ttl
         root_node: Biocypherroot
 
-    owl:
-        edge_model: ObjectProperty
-        file_format: turtle
+owl:
+    edge_model: ObjectProperty
+    file_format: turtle

@@ -40,18 +40,6 @@ def generate_person(
 			p_last_name = fake.last_name()
 			partner, df_data = generate_person(fake=fake, df_data=df_data, accept_partner=False, age_min=age_min, age_max = age_max, last_name=p_last_name)
 	
-		person = {"id": id ,
-				"first_name": first_name ,
-				"last_name": last_name ,
-				"age": age ,
-				"genre": genre ,
-				"children" : str(children) ,
-				"partner" : partner['id'] if partner is not None else None ,
-				"tenant" : tenant ,
-				"owner" : owner ,
-				"pets" : pets
-				}
-				
 		#randomly decide if the individual (aged more than 20) has child
 		if age > 20 and random.choice(range(2)):
 			#randomly decide how many children he has
@@ -66,7 +54,6 @@ def generate_person(
 				if new_child is not None:
 					children.append(new_child["id"])										
 		
-			person["children"] = str(children)
 
 		#randomly decide if the person has pets
 		if random.choice([True, False]):
@@ -74,6 +61,18 @@ def generate_person(
 			for p in range(nb_pets):
 				pets.append(''.join([petname.Generate(2, '_'), "(", random.choice(["cat", "dog"]), ")"]))
 	
+		person = {"id": id ,
+				"first_name": first_name ,
+				"last_name": last_name ,
+				"age": age ,
+				"genre": genre ,
+				"children" : ";".join(children) ,
+				"partner" : partner['id'] if partner is not None else None ,
+				"tenant" : tenant ,
+				"owner" : owner ,
+				"pets" : ";".join(pets) ,
+				}
+				
 		df_data = pd.concat([df_data, pd.DataFrame([person])], ignore_index=True)
 		return person, df_data
 	return None, df_data
