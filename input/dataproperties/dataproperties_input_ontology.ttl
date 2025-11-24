@@ -1,0 +1,171 @@
+@prefix : <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+
+<http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#has_pet
+:has_pet rdf:type owl:ObjectProperty ;
+         rdfs:domain :Person ;
+         rdfs:range :Animal .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/child_of
+:child_of rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :is_relative ;
+          owl:inverseOf :parent_of ;
+          rdfs:domain :Person ;
+          rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/daugther_of
+:daugther_of rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :child_of ;
+             owl:inverseOf :parent_of ;
+             rdfs:domain :Female ;
+             rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/has_partner
+:has_partner rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :is_relative ;
+             rdf:type owl:SymmetricProperty ;
+             rdfs:domain :Person ;
+             rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/is_relative
+:is_relative rdf:type owl:ObjectProperty ;
+             rdfs:domain :Person ;
+             rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parent_of
+:parent_of rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :is_relative ;
+           owl:inverseOf :son_of ;
+           rdfs:domain :Person ;
+           rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/son_of
+:son_of rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :child_of ;
+        rdfs:domain :Male ;
+        rdfs:range :Person .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#age
+:age rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Animal ,
+                 :Person ;
+     rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#name
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Animal ,
+                  :Person ;
+      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#possess_home
+:possess_home rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :Person ;
+              rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#rents_home
+:rents_home rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Person ;
+            rdfs:range xsd:boolean .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Animal
+:Animal rdf:type owl:Class ;
+        rdfs:subClassOf :Biocypherroot .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Cat
+:Cat rdf:type owl:Class ;
+     rdfs:subClassOf :Animal .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3#Dog
+:Dog rdf:type owl:Class ;
+     rdfs:subClassOf :Animal .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Biocypherroot
+:Biocypherroot rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Father
+:Father rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Male
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :parent_of ;
+                                                     owl:someValuesFrom :Person
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf :Parent .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Female
+:Female rdf:type owl:Class ;
+        rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Male
+:Male rdf:type owl:Class ;
+      rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Mother
+:Mother rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Female
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :parent_of ;
+                                                     owl:someValuesFrom :Person
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf :Parent .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Parent
+:Parent rdf:type owl:Class ;
+        rdfs:subClassOf :Role .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf :Biocypherroot .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Role
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Biocypherroot .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

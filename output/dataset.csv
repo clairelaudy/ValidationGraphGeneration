@@ -1,0 +1,9 @@
+,name,genre,is_child_of
+0,father_1,Male,
+1,child_nb_1_of_0,Male,father_1
+2,child_nb_2_of_0,Male,father_1
+3,father_2,Male,
+4,child_nb_1_of_1,Male,father_2
+5,child_nb_2_of_1,Female,father_2
+6,father_3,Male,
+7,child_nb_1_of_2,Female,father_3

@@ -1,0 +1,21 @@
+,first_name,last_name,genre,age,partner,children,pets,tenant,owner,id
+0,Chad,Scott,female,12,,[],[],False,False,423799
+1,Frank,Scott,male,5,,[],"['aware_corgi(dog)', 'moving_filly(dog)']",False,False,158343
+2,Jessica,Smith,female,32,423799,['158343'],"['famous_hermit(cat)', 'loved_mako(dog)']",True,False,397581
+3,Amy,Wang,female,15,,[],[],False,False,168352
+4,David,Parker,male,24,,[],[],True,False,923818
+5,Jacob,Bailey,female,2,,[],['great_zebra(cat)'],False,False,402298
+6,Donna,Bailey,female,4,,[],['boss_racer(cat)'],False,False,271514
+7,Hannah,Bailey,male,26,,"['402298', '271514']",[],False,False,726378
+8,Alison,Sherman,female,12,,[],[],False,False,831776
+9,Alyssa,Sherman,female,8,,[],"['valued_gibbon(cat)', 'vast_duck(cat)']",False,False,261086
+10,Wanda,Sherman,male,2,,[],[],False,False,184124
+11,Emily,Sherman,female,37,,"['831776', '261086', '184124']","['cuddly_hog(cat)', 'in_bee(cat)']",True,False,491252
+12,Russell,Murphy,male,36,491252,[],[],True,True,774485
+13,Stephanie,Matthews,female,28,,[],[],True,False,596496
+14,Jeremy,Bauer,female,9,,[],[],False,False,422108
+15,Mark,Bauer,female,35,,['422108'],['native_boxer(cat)'],False,True,375048
+16,Nicole,Warren,female,33,375048,[],[],True,True,923748
+17,Elizabeth,Lopez,male,25,,[],['guided_asp(cat)'],False,False,599148
+18,Wendy,Webster,female,31,,[],['chief_pigeon(cat)'],False,True,424158
+19,Jesse,Fisher,male,37,,[],[],True,True,940567
