@@ -13,11 +13,7 @@ transformers:
         separator: ";"
         to_object: person
         via_relation: parent_of
-    - split:
-        column: pets
-        separator: ";"
-        to_object: animal
-        via_relation: has_pet
+    - pets_transformer
     - map:
         column: partner
         to_object: person

@@ -23,11 +23,12 @@ def generate_person(
 		id = str(fake.unique.random_int(min=111111, max=999999))
 		
 		#generate name, age, genre:
-		first_name = fake.first_name()
-		if not last_name:
-			last_name = fake.last_name()
 		age = random.randint(age_min, age_max)
 		genre = "male" if random.choice([True, False]) else "female"
+		first_name = fake.first_name_male() if genre=="male" else fake.first_name_female()
+		if not last_name:
+			last_name = fake.last_name()
+		
 		children = []
 		pets = []
 		partner = None
