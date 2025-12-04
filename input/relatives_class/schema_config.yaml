@@ -1,0 +1,34 @@
+person:
+    represented_as: node
+    label_in_input: person
+
+male:
+    represented_as: node
+    label_in_input: male
+
+female:
+    represented_as: node
+    label_in_input: female
+
+parent:
+    represented_as: node
+    label_in_input: parent
+
+is_relative:
+    represented_as: edge
+    label_in_input: is_relative
+    source: person
+    target: person
+
+child_of:
+    represented_as: edge
+    label_in_input: child_of
+    source: person
+    target: person
+
+parent_of:
+    represented_as: edge
+    label_in_input: parent_of
+    source: person
+    target: person
+

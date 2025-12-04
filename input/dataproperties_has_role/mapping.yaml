@@ -1,0 +1,41 @@
+row:
+    map:
+        column: id
+        to_subject: person
+transformers:
+    - split:
+        column: children
+        separator: ";"
+        to_object: person
+        via_relation: parentOf
+    - pets_transformer
+    - map:
+        column: partner
+        to_object: person
+        via_relation: hasPartner
+    - map:
+        columns:
+            - first_name
+        to_property:
+            - firstName
+    - map:
+        columns:
+            - last_name
+        to_property:
+            - lastName
+    - map:
+        columns:
+            - age
+        to_property:
+            - age
+    - map:
+        columns:
+            - tenant
+        to_property:
+            - rentsHome
+    - map:
+        columns:
+            - owner
+        to_property:
+            - possessHome
+                

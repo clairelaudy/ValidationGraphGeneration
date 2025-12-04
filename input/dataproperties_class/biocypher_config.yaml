@@ -5,7 +5,7 @@ biocypher:
 
     # Ontology configuration
     head_ontology:
-        url: input/simplest/ontology.ttl
+        url: input/dataproperties_class/ontology.ttl
         root_node: Biocypherroot
 
 owl:

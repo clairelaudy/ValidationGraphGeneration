@@ -1,0 +1,155 @@
+@prefix : <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+
+<http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/childOf
+:childOf rdf:type owl:ObjectProperty ;
+         owl:inverseOf :parentOf ;
+         rdfs:domain :Person ;
+         rdfs:range :Person ;
+         rdfs:label "childOf" .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/has_role
+:has_role rdf:type owl:ObjectProperty ;
+          rdfs:domain :Person ;
+          rdfs:range :Role .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parentOf
+:parentOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Person ;
+          rdfs:range :Person .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Biocypherroot
+:Biocypherroot rdf:type owl:Class ;
+               rdfs:label "Biocypherroot" .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/FamilyRole
+:FamilyRole rdf:type owl:Class ;
+            rdfs:subClassOf :Role .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Female
+:Female rdf:type owl:Class ;
+        rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Male
+:Male rdf:type owl:Class ;
+      rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/ParentingRole
+:ParentingRole rdf:type owl:Class ;
+               rdfs:subClassOf :FamilyRole .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf :Biocypherroot ;
+        rdfs:label "Person" .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Role
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Biocypherroot .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/SiblingRole
+:SiblingRole rdf:type owl:Class ;
+             rdfs:subClassOf :FamilyRole .
+
+
+###  http://www.w3.org/2002/07/owl#ObjectProperty
+owl:ObjectProperty rdf:type owl:Class ;
+                   rdfs:subClassOf :Biocypherroot ;
+                   rdfs:label "ObjectProperty" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/father
+:father rdf:type owl:NamedIndividual ,
+                 :ParentingRole .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/mother
+:mother rdf:type owl:NamedIndividual ,
+                 :ParentingRole .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/tim
+:tim rdf:type owl:NamedIndividual ,
+              :Male .
+
+
+###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/tom
+:tom rdf:type owl:NamedIndividual ,
+              :Male ;
+     :parentOf :tim .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+:p rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S1" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Male ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> :parentOf ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :c
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :has_role ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> :father
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

@@ -1,0 +1,63 @@
+@prefix : <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/> .
+
+<http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
+
+:Biocypherroot rdf:type owl:Class ;
+        rdfs:label "Biocypherroot" .
+
+owl:ObjectProperty a owl:Class ;
+        rdfs:label "ObjectProperty" ;
+        rdfs:subClassOf :Biocypherroot .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+
+:parentOf rdf:type owl:ObjectProperty ;
+           rdfs:label "parentOf" ;
+           rdfs:subClassOf :Biocypherroot ;
+           rdfs:domain :Person ;
+           owl:inverseOf :childOf ;
+           rdfs:range :Person .
+
+:childOf rdf:type owl:ObjectProperty ;
+          rdfs:label "childOf" ;
+          rdfs:subClassOf :Biocypherroot ;
+          owl:inverseOf :parentOf ;
+          rdfs:domain :Person ;
+          rdfs:range :Person .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Biocypherroot .
+
+
+
+:Parent rdf:type owl:Class ;
+          rdfs:label "Parent" ;
+          rdfs:subClassOf :Biocypherroot ;
+        owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :parentOf ;
+                                                     owl:someValuesFrom :Person
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf :Role .
+
+
+:Person rdf:type owl:Class ;
+        rdfs:label "Person" ;
+        rdfs:subClassOf :Biocypherroot .

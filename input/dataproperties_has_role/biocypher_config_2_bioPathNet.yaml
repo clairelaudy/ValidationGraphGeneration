@@ -1,13 +1,10 @@
 biocypher:
     debug: true
     offline: true
-    dbms: owl
+    dbms: biopathnet
 
     # Ontology configuration
     head_ontology:
-        url: input/simplest/ontology.ttl
+        url: output/dataProperties_has_role/reasoned.ttl
         root_node: Biocypherroot
 
-owl:
-    edge_model: ObjectProperty
-    file_format: turtle
