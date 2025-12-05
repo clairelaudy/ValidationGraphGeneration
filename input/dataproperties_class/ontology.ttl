@@ -23,55 +23,53 @@
 #    Object Properties
 #################################################################
 
-:has_pet rdf:type owl:ObjectProperty ;
+:hasPet rdf:type owl:ObjectProperty ;
 		 rdfs:subClassOf :ObjectProperty ;
-         rdfs:label "has_pet" ;
+         rdfs:label "hasPet" ;
          rdfs:domain :Person ;
          rdfs:range :Animal .
 
 
-:child_of rdf:type owl:ObjectProperty ;
-          rdfs:label "child_of" ;
-          rdfs:subPropertyOf :is_relative ;
-          owl:inverseOf :parent_of ;
+:childOf rdf:type owl:ObjectProperty ;
+          rdfs:label "childOf" ;
+          rdfs:subPropertyOf :isRelative ;
+          owl:inverseOf :parentOf ;
           rdfs:domain :Person ;
           rdfs:range :Person .
 
 
-:daugther_of rdf:type owl:ObjectProperty ;
-             rdfs:label "daugther_of" ;
-             rdfs:subPropertyOf :child_of ;
-             owl:inverseOf :parent_of ;
+:daugtherOf rdf:type owl:ObjectProperty ;
+             rdfs:label "daugtherOf" ;
+             rdfs:subPropertyOf :childOf ;
              rdfs:domain :Female ;
              rdfs:range :Person .
 
 
-:has_partner rdf:type owl:ObjectProperty ;
-             rdfs:label "has_partner" ;
-             rdfs:subPropertyOf :is_relative ;
+:hasPartner rdf:type owl:ObjectProperty ;
+             rdfs:label "hasPartner" ;
+             rdfs:subPropertyOf :isRelative ;
              rdf:type owl:SymmetricProperty ;
              rdfs:domain :Person ;
              rdfs:range :Person .
 
 
-:is_relative rdf:type owl:ObjectProperty ;
+:isRelative rdf:type owl:ObjectProperty ;
 			 rdfs:subClassOf :ObjectProperty ;
-             rdfs:label "is_relative" ;
+             rdfs:label "isRelative" ;
              rdfs:domain :Person ;
              rdfs:range :Person .
 
 
-:parent_of rdf:type owl:ObjectProperty ;
-           rdfs:label "parent_of" ;
-           rdfs:subPropertyOf :is_relative ;
-           owl:inverseOf :son_of ;
+:parentOf rdf:type owl:ObjectProperty ;
+           rdfs:label "parentOf" ;
+           rdfs:subPropertyOf :isRelative ;
            rdfs:domain :Person ;
            rdfs:range :Person .
 
 
-:son_of rdf:type owl:ObjectProperty ;
-        rdfs:label "son_of" ;
-        rdfs:subPropertyOf :child_of ;
+:sonOf rdf:type owl:ObjectProperty ;
+        rdfs:label "sonOf" ;
+        rdfs:subPropertyOf :childOf ;
         rdfs:domain :Male ;
         rdfs:range :Person .
 

@@ -2,33 +2,33 @@ person:
     represented_as: node
     label_in_input: person
     properties:
-        - first_name: str
-        - last_name: str
-        - age: str
-        - rents_home: bool
-        - possess_home: bool
+        first_name: str
+        last_name: str
+        age: str
+        rents_home: bool
+        possess_home: bool
 
-is_relative:
+isRelative:
     represented_as: edge
-    label_in_input: is_relative
+    label_in_input: isRelative
+    source: person
+    target: person
+    
+childOf:
+    represented_as: edge
+    label_in_input: childOf
     source: person
     target: person
 
-child_of:
+parentOf:
     represented_as: edge
-    label_in_input: child_of
+    label_in_input: parentOf
     source: person
     target: person
 
-parent_of:
+hasPet:
     represented_as: edge
-    label_in_input: parent_of
-    source: person
-    target: person
-
-has_pet:
-    represented_as: edge
-    label_in_input: has_pet
+    label_in_input: hasPet
     source: person
     target: animal
 
