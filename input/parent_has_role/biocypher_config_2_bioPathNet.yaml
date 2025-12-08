@@ -5,6 +5,6 @@ biocypher:
 
     # Ontology configuration
     head_ontology:
-        url: output/simplest/reasoned.ttl
+        url: output/parent_has_role/reasoned.ttl
         root_node: Biocypherroot
 

@@ -14,3 +14,9 @@ parentOf:
     source: person
     target: person
 
+role:
+    represented_as: edge
+    label_in_input: role
+    source: person
+    target: person
+

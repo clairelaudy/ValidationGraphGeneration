@@ -21,7 +21,7 @@ echo "** Generate CSV data"
 uv run src/generate_full_data.py $NUMBER_OF_PERSONS output/data.csv
 
 echo "** Populate the ontology with data"
-uv run ontoweave output/data.csv:"input/$PATH_TO_SCENARIO/mapping.yaml" -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config.yaml" --register src/pets_transformer.py --debug
+uv run ontoweave output/data.csv:"input/$PATH_TO_SCENARIO/mapping.yaml" -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config.yaml" --register src/pets_transformer.py
 
 echo "** Copy Biocypher output to working directory"
 mkdir "output/$PATH_TO_SCENARIO/"
@@ -33,5 +33,11 @@ robot reason --reasoner hermit --input "output/$PATH_TO_SCENARIO/biocypher.ttl" 
 echo "** Export owl ontology to BioPathNet format"
 import_file=$(uv run ontoweave "output/$PATH_TO_SCENARIO/reasoned.ttl":automap -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config_2_biopathnet.yaml" --debug)
 
-cat $(dirname $import_file)/*
+echo "OUTPUT train1.txt :"
+cat $(dirname $import_file)/train1.txt
 
+echo "OUTPUT train2.txt :"
+cat $(dirname $import_file)/train2.txt
+
+echo "OUTPUT entity_types.txt :"
+cat $(dirname $import_file)/entity_types.txt
