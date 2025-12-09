@@ -7,6 +7,7 @@ import pandas as pd
 import biocypher
 import ontoweaver
 
+from src.pets_transformer import pets_transformer
 
 def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_config):
 
@@ -15,7 +16,9 @@ def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_confi
 
     logging.info(f"Load CSV data from `{data_file}'")
     logging.info(f"With mapping from `{mapping_filename}'")
-        
+
+    ontoweaver.transformer.register(pets_transformer)
+            
     nodes, edges = ontoweaver.extract(filename_to_mapping)
     bc_nodes, bc_edges = ontoweaver.ow2bc(nodes), ontoweaver.ow2bc(edges)
 
@@ -62,7 +65,7 @@ if __name__ == "__main__":
     parser.add_argument("biocypher_config")
     parser.add_argument("schema_config")
     args = parser.parse_args()
-    logging.debug(args)
+    print(args)
     
     data_filename= "tests/test_node_type_fusion/test.csv"
     export_csv_2_owl(args.data_filename, args.mapping_filename, args.biocypher_config, args.schema_config)

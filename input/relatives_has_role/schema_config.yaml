@@ -10,25 +10,27 @@ female:
     represented_as: node
     label_in_input: female
 
-parent:
-    represented_as: node
-    label_in_input: parent
-
-is_relative:
+isRelative:
     represented_as: edge
-    label_in_input: is_relative
+    label_in_input: isRelative
     source: person
     target: person
 
-child_of:
+childOf:
     represented_as: edge
-    label_in_input: child_of
+    label_in_input: childOf
     source: person
     target: person
 
-parent_of:
+parentOf:
     represented_as: edge
-    label_in_input: parent_of
+    label_in_input: parentOf
+    source: person
+    target: person
+
+hasPartner:
+    represented_as: edge
+    label_in_input: hasPartner
     source: person
     target: person
 

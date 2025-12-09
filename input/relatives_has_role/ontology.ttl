@@ -8,52 +8,48 @@
 
 <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
 
-:Biocypherroot rdf:type owl:Class
+:Biocypherroot rdf:type owl:Class ;
         rdfs:label "Biocypherroot" .
-
-owl:ObjectProperty rdf:type owl:Class ;
-                   rdfs:subClassOf :Biocypherroot ;
-                   rdfs:label "ObjectProperty" .
 
 
 #################################################################
 #    Object Properties
 #################################################################
 
-:is_relative rdf:type owl:ObjectProperty ;
-        rdfs:label "is_relative" ;
-        rdfs:subClassOf owl:ObjectProperty ;
+:isRelative rdf:type owl:ObjectProperty ;
+        rdfs:label "isRelative" ;
+        rdfs:subClassOf :Biocypherroot ;
         rdfs:domain :Person ;
         rdfs:range :Person .
 
-:has_partner rdf:type owl:ObjectProperty ;
-        rdfs:label "has_partner" ;
-        rdfs:subPropertyOf :is_relative ;
+:hasPartner rdf:type owl:ObjectProperty ;
+        rdfs:label "hasPartner" ;
+        rdfs:subPropertyOf :isRelative ;
         rdfs:domain :Person ;
         rdfs:range :Person .
 
 :childOf rdf:type owl:ObjectProperty ;
         rdfs:label "childOf" ;
-        rdfs:subPropertyOf :is_relative ;
+        rdfs:subPropertyOf :isRelative ;
         owl:inverseOf :parentOf ;
         rdfs:domain :Person ;
         rdfs:range :Person .
 
-:son_of rdf:type owl:ObjectProperty ;
-        rdfs:label "son_of" ;
+:sonOf rdf:type owl:ObjectProperty ;
+        rdfs:label "sonOf" ;
         rdfs:subPropertyOf :childOf ;
         rdfs:domain :Male ;
         rdfs:range :Person .
 
-:daugther_of rdf:type owl:ObjectProperty ;
-        rdfs:label "daugther_of"
+:daugtherOf rdf:type owl:ObjectProperty ;
+        rdfs:label "daugtherOf" ;
         rdfs:subPropertyOf :childOf ;
         rdfs:domain :Female ;
         rdfs:range :Person .
 
 :parentOf rdf:type owl:ObjectProperty ;
-        rdfs:label "parentOf"
-        rdfs:subPropertyOf :is_relative ;
+        rdfs:label "parentOf" ;
+        rdfs:subPropertyOf :isRelative ;
         owl:inverseOf :childOf ;
         rdfs:domain :Person ;
         rdfs:range :Person .
@@ -80,7 +76,7 @@ owl:ObjectProperty rdf:type owl:Class ;
 
 
 :Role rdf:type owl:Class ;
-      rdfs:label "Role"
+      rdfs:label "Role" ;
       rdfs:subClassOf :Biocypherroot .
 
 
@@ -94,6 +90,7 @@ owl:NamedIndividual rdf:type owl:Class ;
 #################################################################
 
 :parent rdf:type owl:NamedIndividual ;
+            rdfs:label "parent" ;
             rdf:type :Role . 
 
 

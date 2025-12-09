@@ -12,8 +12,8 @@ transformers:
         column: children
         separator: ";"
         to_object: person
-        via_relation: parent_of
+        via_relation: parentOf
     - map:
         column: partner
         to_object: person
-        via_relation: has_partner
+        via_relation: hasPartner

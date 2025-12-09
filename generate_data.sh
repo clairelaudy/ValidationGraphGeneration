@@ -21,7 +21,8 @@ echo "** Generate CSV data"
 uv run src/generate_full_data.py $NUMBER_OF_PERSONS output/data.csv
 
 echo "** Populate the ontology with data"
-uv run ontoweave output/data.csv:"input/$PATH_TO_SCENARIO/mapping.yaml" -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config.yaml" --register src/pets_transformer.py --debug
+# uv run ontoweave output/data.csv:"input/$PATH_TO_SCENARIO/mapping.yaml" -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config.yaml" --register src/pets_transformer.py --debug
+uv run src/csv2owl.py output/data.csv "input/$PATH_TO_SCENARIO/mapping.yaml" "input/$PATH_TO_SCENARIO/biocypher_config.yaml" "input/$PATH_TO_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
 echo "** Copy Biocypher output to working directory"
 mkdir "output/$PATH_TO_SCENARIO/"
