@@ -54,6 +54,7 @@
 
 
 :Role rdf:type owl:Class ;
+      rdfs:label "role" ;
       rdfs:subClassOf :Biocypherroot .
 
 

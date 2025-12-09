@@ -3,6 +3,28 @@ revision = 3
 requires-python = ">=3.13"
 
 [[package]]
+name = "about-time"
+version = "4.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1c/3f/ccb16bdc53ebb81c1bf837c1ee4b5b0b69584fd2e4a802a2a79936691c0a/about-time-4.2.1.tar.gz", hash = "sha256:6a538862d33ce67d997429d14998310e1dbfda6cb7d9bbfbf799c4709847fece", size = 15380, upload-time = "2022-12-21T04:15:54.991Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fb/cd/7ee00d6aa023b1d0551da0da5fee3bc23c3eeea632fbfc5126d1fec52b7e/about_time-4.2.1-py3-none-any.whl", hash = "sha256:8bbf4c75fe13cbd3d72f49a03b02c5c7dca32169b6d49117c257e7eb3eaee341", size = 13295, upload-time = "2022-12-21T04:15:53.613Z" },
+]
+
+[[package]]
+name = "alive-progress"
+version = "3.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "about-time" },
+    { name = "graphemeu" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9a/26/d43128764a6f8fe1668c4f87aba6b1fe52bea81d05a35c84a70d3c70b6f7/alive-progress-3.3.0.tar.gz", hash = "sha256:457dd2428b48dacd49854022a46448d236a48f1b7277874071c39395307e830c", size = 116281, upload-time = "2025-07-20T02:10:39.07Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/26/85/ec72f6c885703d18f3b09769645e950e14c7d0cc0a0e35d94127983f666f/alive_progress-3.3.0-py3-none-any.whl", hash = "sha256:63dd33bb94cde15ad9e5b666dbba8fedf71b72a4935d6fb9a92931e69402c9ff", size = 78403, upload-time = "2025-07-20T02:10:37.318Z" },
+]
+
+[[package]]
 name = "annotated-types"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -31,7 +53,7 @@ wheels = [
 
 [[package]]
 name = "biocypher"
-version = "0.10.1"
+version = "0.11.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "appdirs" },
@@ -45,9 +67,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "treelib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c8/6e/7611197058ef213d1e12a8aa86977e46d9ba53aec0f2a3c2ad446a8b6d56/biocypher-0.10.1.tar.gz", hash = "sha256:63ef296bcf7525f50138122af32a4ca178db834753d1138f6080be21905d1fe8", size = 80953, upload-time = "2025-07-29T14:07:30.879Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/42/07fd39b26449493d97f88d5ee1dfdca7fc9a5fdb448a5ac63b40e2e48c9f/biocypher-0.11.0.tar.gz", hash = "sha256:70d6ff3e93cb93078a583d1e39cef5d99840069b318270555a0a87913bdfc5e6", size = 3112764, upload-time = "2025-09-17T00:25:24.392Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/a8/87e947eadb8e956ac46e1e22467a5a5611d1a290e06c86b555d98ef6f603/biocypher-0.10.1-py3-none-any.whl", hash = "sha256:cd58cb26b6699a0c41d227e748057bf5719056ba5d0c3cd27fc501066bfb433f", size = 93915, upload-time = "2025-07-29T14:07:29.567Z" },
+    { url = "https://files.pythonhosted.org/packages/60/a3/1bed0595dffb2f1809f6d1b12e8776dfb8ffa89ed0be89d63fecf9462eef/biocypher-0.11.0-py3-none-any.whl", hash = "sha256:eba3e3f428e2589a9fc30a092dc44d84e68a2e4a2c62eab97f8dd9de96385f4b", size = 105935, upload-time = "2025-09-17T00:25:22.754Z" },
 ]
 
 [[package]]
@@ -204,6 +226,24 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a5/41/ef3ea62748b31bfb11726ad67b14ce082c109eaeae013cd08e58a5ad5233/frictionless-4.40.8.tar.gz", hash = "sha256:324061d754525adfe8f6be56af12660a40966c0c4e01eccfc993dc82b9e9e623", size = 257630, upload-time = "2022-08-25T09:20:30.227Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9b/9f/e0665962954bd22b1c3648fcba81547f6408914bfd580d864593ffdda83e/frictionless-4.40.8-py2.py3-none-any.whl", hash = "sha256:87b71da5ba5f694b2091aabc6f705cf1c00bb44395964735d57aec00a89c555f", size = 419482, upload-time = "2022-08-25T09:20:28.302Z" },
+]
+
+[[package]]
+name = "fsspec"
+version = "2025.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/7f/2747c0d332b9acfa75dc84447a066fdf812b5a6b8d30472b74d309bfe8cb/fsspec-2025.10.0.tar.gz", hash = "sha256:b6789427626f068f9a83ca4e8a3cc050850b6c0f71f99ddb4f542b8266a26a59", size = 309285, upload-time = "2025-10-30T14:58:44.036Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/02/a6b21098b1d5d6249b7c5ab69dde30108a71e4e819d4a9778f1de1d5b70d/fsspec-2025.10.0-py3-none-any.whl", hash = "sha256:7c7712353ae7d875407f97715f0e1ffcc21e33d5b24556cb1e090ae9409ec61d", size = 200966, upload-time = "2025-10-30T14:58:42.53Z" },
+]
+
+[[package]]
+name = "graphemeu"
+version = "0.7.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/76/20/d012f71e7d00e0d5bb25176b9a96c5313d0e30cf947153bfdfa78089f4bb/graphemeu-0.7.2.tar.gz", hash = "sha256:42bbe373d7c146160f286cd5f76b1a8ad29172d7333ce10705c5cc282462a4f8", size = 307626, upload-time = "2025-01-15T09:48:59.488Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/18/36503ea63e1ecd0a95590d7b6b8b7d227a1e4541a154e1612a231def1bdc/graphemeu-0.7.2-py3-none-any.whl", hash = "sha256:1444520f6899fd30114fc2a39f297d86d10fa0f23bf7579f772f8bc7efaa2542", size = 22670, upload-time = "2025-01-15T09:48:57.241Z" },
 ]
 
 [[package]]
@@ -465,10 +505,12 @@ wheels = [
 
 [[package]]
 name = "ontoweaver"
-version = "0.2.5"
-source = { registry = "https://pypi.org/simple" }
+version = "1.0.0"
+source = { editable = "../ontoweaver" }
 dependencies = [
+    { name = "alive-progress" },
     { name = "biocypher" },
+    { name = "fsspec" },
     { name = "jsonargparse" },
     { name = "numpy" },
     { name = "owlready2" },
@@ -477,16 +519,26 @@ dependencies = [
     { name = "pooch" },
     { name = "xdg-base-dirs" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/25/b4/4b148afb20f81a804dee33ef98caf9a0579c56b5c7c933daee42a9feb7c4/ontoweaver-0.2.5.tar.gz", hash = "sha256:9241a8d6cc768f72d4f22ac0e41b3f409e0c902cfeb85fb217edb3c853f74078", size = 47395, upload-time = "2025-08-06T08:29:41.11Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/97/9b0ca23d4d1070af226125b91b11c00fc4b9535c0f34d97b2fd93240ba60/ontoweaver-0.2.5-py3-none-any.whl", hash = "sha256:e7a61ec0d7a78ab8d18b3619d2709b48b01c68eaacf19f24fdca1bc7b40f617b", size = 53770, upload-time = "2025-08-06T08:29:39.543Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "alive-progress", specifier = ">=3.2,<4.0" },
+    { name = "biocypher", specifier = ">=0.11.0,<0.12.0" },
+    { name = "fsspec", specifier = ">=2025.10.0,<2026.0.0" },
+    { name = "jsonargparse", specifier = ">=4.39,<5.0" },
+    { name = "numpy", specifier = ">=2.2.4,<3.0.0" },
+    { name = "owlready2", specifier = ">=0.49,<0.50" },
+    { name = "pandas", specifier = ">=2.3.1,<3.0.0" },
+    { name = "pandera", extras = ["io"], specifier = ">=0.27.0,<0.28.0" },
+    { name = "pooch", specifier = ">=1.7.0,<2.0.0" },
+    { name = "xdg-base-dirs", specifier = ">=6.0.2,<7.0.0" },
 ]
 
 [[package]]
 name = "owlready2"
-version = "0.48"
+version = "0.49"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/8d/79/01daa72fbd07b1d4dd0907356d0ae486a684f0bd4654430f27a3e31206ee/owlready2-0.48.tar.gz", hash = "sha256:86b4d8500d769a674c524b54397fdd738ff5d0a96878432b69f4d606d6a7a4d8", size = 27298462, upload-time = "2025-05-27T09:15:03.095Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/62/06/de9eab54845aeb1a60d1b9bfe115e55540e00bab50d1ec52a4c503f33097/owlready2-0.49.tar.gz", hash = "sha256:f076f0a89f64cf27088b69f2ff65c7d5c27da15c0ac6c5ac57ec726e89baf928", size = 27305575, upload-time = "2025-11-24T16:50:48.735Z" }
 
 [[package]]
 name = "packaging"
@@ -539,7 +591,7 @@ wheels = [
 
 [[package]]
 name = "pandera"
-version = "0.25.0"
+version = "0.27.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
@@ -548,9 +600,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspect" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/13/c1/02f78cd18cd32a009405c847dcf430a97d1a8c162f6e8872acae928c8f20/pandera-0.25.0.tar.gz", hash = "sha256:af3bbaa163672c91b83d59d70715f25c4134dbccfc8bc89a642a2f0e23db951e", size = 555391, upload-time = "2025-07-08T19:20:22.106Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/9d/36af210c7cef275d646b8dded8cc555078a271514e34f8f8d1c056462dc3/pandera-0.27.0.tar.gz", hash = "sha256:83c66d5896b97b3a91c810621038d2495f56c83864493819e7587d2059e641ad", size = 567135, upload-time = "2025-11-25T16:20:35.156Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/e0/234707103c742555e1c23bff51f3f0e496c144cd76fcf5a6b800dfe193f2/pandera-0.25.0-py3-none-any.whl", hash = "sha256:365a555accc46404466641203e297722d424d74a1315f077ab899e1344f82303", size = 293336, upload-time = "2025-07-08T19:20:20.44Z" },
+    { url = "https://files.pythonhosted.org/packages/d5/26/8e4a28ffbf3406c60d58eaa7f0529fb6197f5ae49f77b173dc84c057e1a2/pandera-0.27.0-py3-none-any.whl", hash = "sha256:e43b8062dfcde984300d798686815cc93feaae09645d3cddee3ab437f2d11ed5", size = 295880, upload-time = "2025-11-25T16:20:33.635Z" },
 ]
 
 [package.optional-dependencies]
@@ -1070,6 +1122,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "faker" },
     { name = "ontoweaver" },
+    { name = "owlready2" },
     { name = "pandas" },
     { name = "petname" },
 ]
@@ -1077,7 +1130,8 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "faker" },
-    { name = "ontoweaver" },
+    { name = "ontoweaver", editable = "../ontoweaver" },
+    { name = "owlready2" },
     { name = "pandas" },
     { name = "petname" },
 ]
