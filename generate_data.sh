@@ -1,11 +1,14 @@
 #!/bin/sh
-set -e
+set -ex
 
 PATH_TO_SCENARIO=$1
 NUMBER_OF_PERSONS=$2
+NUMBER_OF_ABLATION=$3
+EDGE_TO_LEARN=$4
+LEARNING_GRAPH_FILE=$5
 
-if [ $# -ne 2 ] ; then
-  echo "Usage: $0 <path_to_scenario> <number_of_persons>" 1>&2
+if [ $# -ne 5 ] ; then
+  echo "Usage: $0 <path_to_scenario> <number_of_persons> <number_of_learning_edges_to_remove> <type_of_edge_to_remove> <output_learning_graph_file_name>" 1>&2
   exit 2
 fi
 
@@ -33,12 +36,19 @@ robot reason --reasoner hermit --input "output/$PATH_TO_SCENARIO/biocypher.ttl" 
 
 echo "** Export owl ontology to BioPathNet format"
 import_file=$(uv run ontoweave "output/$PATH_TO_SCENARIO/reasoned.ttl":automap -s "input/$PATH_TO_SCENARIO/schema_config.yaml" -C "input/$PATH_TO_SCENARIO/biocypher_config_2_biopathnet.yaml" --debug)
+out=$(dirname $import_file)
 
-echo "OUTPUT train1.txt :"
-cat $(dirname $import_file)/train1.txt
+echo "OUTPUT BRG graph :"
+cp "$out/train1.txt" "output/$PATH_TO_SCENARIO/brg.txt"
+cat "output/$PATH_TO_SCENARIO/brg.txt" 
 
-echo "OUTPUT train2.txt :"
-cat $(dirname $import_file)/train2.txt
+echo "OUTPUT Semantic Network :"
+cp "$out/train2.txt" "output/$PATH_TO_SCENARIO/semantic_graph.txt"
+cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
 echo "OUTPUT entity_types.txt :"
-cat $(dirname $import_file)/entity_types.txt
+cat "$out/entity_types.txt"
+
+echo "Ablation of data in the learning graph"
+uv run src/data_ablation.py $4 $3 "output/$PATH_TO_SCENARIO/semantic_graph.txt" "output/$PATH_TO_SCENARIO/$LEARNING_GRAPH_FILE" "output/$PATH_TO_SCENARIO/test.txt"
+
