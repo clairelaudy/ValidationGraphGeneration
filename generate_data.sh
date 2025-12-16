@@ -6,9 +6,10 @@ NUMBER_OF_PERSONS=$2
 NUMBER_OF_ABLATION=$3
 EDGE_TO_LEARN=$4
 LEARNING_GRAPH_FILE=$5
+RATIO_VALID=$6
 
-if [ $# -ne 5 ] ; then
-  echo "Usage: $0 <path_to_scenario> <number_of_persons> <number_of_learning_edges_to_remove> <type_of_edge_to_remove> <output_learning_graph_file_name>" 1>&2
+if [ $# -ne 6 ] ; then
+  echo "Usage: $0 <path_to_scenario> <number_of_persons> <number_of_learning_edges_to_remove> <type_of_edge_to_remove> <output_learning_graph_file_name> <validation_ratio>" 1>&2
   exit 2
 fi
 
@@ -47,8 +48,16 @@ cp "$out/train2.txt" "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
 echo "OUTPUT entity_types.txt :"
-cat "$out/entity_types.txt"
+cp "$out/entity_types.txt" "output/$PATH_TO_SCENARIO/entity_types.txt"
+cat "output/$PATH_TO_SCENARIO/entity_types.txt"
+
+echo "OUTPUT entity_names.txt :"
+cp "$out/entity_names.txt" "output/$PATH_TO_SCENARIO/entity_names.txt"
+cat "output/$PATH_TO_SCENARIO/entity_names.txt"
 
 echo "Ablation of data in the learning graph"
 uv run src/data_ablation.py $4 $3 "output/$PATH_TO_SCENARIO/semantic_graph.txt" "output/$PATH_TO_SCENARIO/$LEARNING_GRAPH_FILE" "output/$PATH_TO_SCENARIO/test.txt"
+
+echo "Make validation dataset"
+uv run src/make_validation_set.py $4 $6 "output/$PATH_TO_SCENARIO/$LEARNING_GRAPH_FILE" "output/$PATH_TO_SCENARIO/valid.txt"
 
