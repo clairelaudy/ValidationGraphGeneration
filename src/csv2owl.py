@@ -1,3 +1,14 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#    "ontoweaver",
+#    "biocypher<1.0.0,>=0.11.0",
+#    "neo4j_utils",
+#    "lxml",
+#    "jmespath",
+# ]
+# ///
+
 import argparse
 import logging
 
