@@ -31,14 +31,4 @@ if [ $# -ne 5 ] ; then
   exit 2
 fi
 
-EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
-mkdir -p $EXPE
-
-cd $EXPE
-git clone ../.. .
-
-export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/"
-
-uv sync
-
 ./generate_data.sh ${NAME_OF_SCENARIO} ${NUMBER_OF_PERSONS} ${NUMBER_OF_ABLATION} ${EDGE_TO_LEARN} ${RATIO_VALID}

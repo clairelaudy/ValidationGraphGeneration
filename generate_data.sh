@@ -26,46 +26,44 @@ EDGE_TO_LEARN=$4
 RATIO_VALID=$5
 
 
-PATH_TO_SCENARIO=${NAME_OF_SCENARIO}_${NUMBER_OF_PERSONS} 
+PATH_TO_SCENARIO=${NUMBER_OF_PERSONS} 
 
 LEARNING_GRAPH_FILE=${PATH_TO_SCENARIO}_${NUMBER_OF_ABLATION}_${EDGE_TO_LEARN}
 
 
-echo "** Generate CSV data"
-uv run src/generate_full_data.py $NUMBER_OF_PERSONS output/$PATH_TO_SCENARIO/data.csv
-
-echo "** Populate the ontology with data"
+echo "** Populate the ontology with data" 1>&2
 src/csv2owl.py output/$PATH_TO_SCENARIO/data.csv "input/$NAME_OF_SCENARIO/mapping.yaml" "input/$NAME_OF_SCENARIO/biocypher_config.yaml" "input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
-echo "** Copy Biocypher output to working directory"
+echo "** Copy Biocypher output to working directory" 1>&2
 cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_SCENARIO/biocypher.ttl"
+rm biocypher-out/*/biocypher.ttl
 
-echo "** Launch reasoner to infer new information"
+echo "** Launch reasoner to infer new information" 1>&2
 robot reason --reasoner hermit --input "output/$PATH_TO_SCENARIO/biocypher.ttl" --output "output/$PATH_TO_SCENARIO/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 
 
 cat biocypher_config_template.yaml | sed "s,{{ONTOLOGY_URL}},output/$PATH_TO_SCENARIO/reasoned.ttl," > input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml
 
-echo "** Export owl ontology to BioPathNet format"
+echo "** Export owl ontology to BioPathNet format" 1>&2
 import_file=$(ontoweave "output/$PATH_TO_SCENARIO/reasoned.ttl":automap -s "input/$NAME_OF_SCENARIO/schema_config.yaml" -C "input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml")
 out=$(dirname $import_file)
 
-echo "OUTPUT BRG graph :"
+echo "OUTPUT BRG graph :" 1>&2
 cp "$out/train1.txt" "output/$PATH_TO_SCENARIO/brg.txt"
-cat "output/$PATH_TO_SCENARIO/brg.txt" 
+#cat "output/$PATH_TO_SCENARIO/brg.txt" 1>&2
 
-echo "OUTPUT Semantic Network :"
+echo "OUTPUT Semantic Network :" 1>&2
 cp "$out/train2.txt" "output/$PATH_TO_SCENARIO/semantic_graph.txt"
-cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
+#cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
-echo "OUTPUT entity_types.txt :"
+echo "OUTPUT entity_types.txt :" 1>&2
 cp "$out/entity_types.txt" "output/$PATH_TO_SCENARIO/entity_types.txt"
-cat "output/$PATH_TO_SCENARIO/entity_types.txt"
+#cat "output/$PATH_TO_SCENARIO/entity_types.txt"
 
-echo "OUTPUT entity_names.txt :"
+echo "OUTPUT entity_names.txt :" 1>&2
 cp "$out/entity_names.txt" "output/$PATH_TO_SCENARIO/entity_names.txt"
-cat "output/$PATH_TO_SCENARIO/entity_names.txt"
+#cat "output/$PATH_TO_SCENARIO/entity_names.txt"
 
-echo "** Ablation of data in the learning graph"
+echo "** Ablation of data in the learning graph" 1>&2
 uv run src/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/$PATH_TO_SCENARIO/semantic_graph.txt" "output/$PATH_TO_SCENARIO/${LEARNING_GRAPH_FILE}_learning.txt" "output/$PATH_TO_SCENARIO/${LEARNING_GRAPH_FILE}_test.txt"
 
 echo "** Make validation dataset"
