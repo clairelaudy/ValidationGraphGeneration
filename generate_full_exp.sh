@@ -31,12 +31,12 @@ export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/project
 uv sync
 
 #Nombre de personnes primaires à générer dan sle fichier csv :
-declare -a arr_nb_p=("100"
+declare -a arr_nb_p=("20"
 )
 
 #Number of edge to erase from the complete skg:
 declare -a arr_ablation=("1"
-"10"
+#"10"
 )
 
 #Ratio of validation data for the learning phase:
@@ -64,43 +64,44 @@ do
         declare -a arr_edge=("childOf"
         "parentOf"
         )
+        mkdir -p "output/${p}/${i}/"
         for e in "${arr_edge[@]}"
         do
           ./prepare_expe.sh ${i} ${p} ${a} ${e} ${v}
         done
       done
 
-      echo "*** Generate data for _has_role scenarios" 1>&2
-      declare -a arr_scenarios=(
-        "parent_has_role"
-        "relatives_has_role"
-#        "dataproperties_has_role"
-      )
-      for i in "${arr_scenarios[@]}"
-      do
-        declare -a arr_edge=("childOf"
-                          "parentOf"
-                          )
-        for e in "${arr_edge[@]}"
-        do
-          ./prepare_expe.sh ${i} ${p} ${a} ${e} ${v}
-        done
-      done
+#       echo "*** Generate data for _has_role scenarios" 1>&2
+#       declare -a arr_scenarios=(
+#         "parent_has_role"
+#         "relatives_has_role"
+# #        "dataproperties_has_role"
+#       )
+#       for i in "${arr_scenarios[@]}"
+#       do
+#         declare -a arr_edge=("childOf"
+#                           "parentOf"
+#                           )
+#         for e in "${arr_edge[@]}"
+#         do
+#           ./prepare_expe.sh ${i} ${p} ${a} ${e} ${v}
+#         done
+#       done
 
-      echo "*** Generate data for _class scenarios" 1>&2
-      declare -a arr_scenarios=("parent_class"
-        "relatives_class"
-#        "dataproperties_class"
-      )    
-      for i in "${arr_scenarios[@]}"
-      do
-        declare -a arr_edge=("is_a"
-                          )
-        for e in "${arr_edge[@]}"
-        do
-          ./prepare_expe.sh ${i} ${p} ${a} ${e} ${v}
-        done
-      done
+#       echo "*** Generate data for _class scenarios" 1>&2
+#       declare -a arr_scenarios=("parent_class"
+#         "relatives_class"
+# #        "dataproperties_class"
+#       )    
+#       for i in "${arr_scenarios[@]}"
+#       do
+#         declare -a arr_edge=("is_a"
+#                           )
+#         for e in "${arr_edge[@]}"
+#         do
+#           ./prepare_expe.sh ${i} ${p} ${a} ${e} ${v}
+#         done
+#       done
 
     done
   done
