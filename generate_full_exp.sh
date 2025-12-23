@@ -74,7 +74,7 @@ do
       declare -a arr_scenarios=(
         "parent_has_role"
         "relatives_has_role"
-        "dataproperties_has_role"
+#        "dataproperties_has_role"
       )
       for i in "${arr_scenarios[@]}"
       do
@@ -90,7 +90,7 @@ do
       echo "*** Generate data for _class scenarios" 1>&2
       declare -a arr_scenarios=("parent_class"
         "relatives_class"
-        "dataproperties_class"
+#        "dataproperties_class"
       )    
       for i in "${arr_scenarios[@]}"
       do
