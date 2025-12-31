@@ -31,7 +31,7 @@ export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/project
 uv sync
 
 #Nombre de personnes primaires à générer dan sle fichier csv :
-declare -a arr_nb_p=("20"
+declare -a arr_nb_p=("3"
 )
 
 #Number of edge to erase from the complete skg:
