@@ -20,15 +20,55 @@
 set -ex
 
 NAME_OF_SCENARIO=$1
-NUMBER_OF_PERSONS=$2
-NUMBER_OF_ABLATION=$3
-EDGE_TO_LEARN=$4
-RATIO_VALID=$5
+NUMBER_OF_LEARNING_DATA=$2
+NUMBER_OF_VALIDATION_DATA=$3
+NUMBER_OF_TEST_DATA=$4
+EDGE_TO_LEARN=$5
+NUMBER_OF_ABLATION=$6
 
+PATH_TO_EXPE="${NAME_OF_SCENARIO}/${NUMBER_OF_LEARNING_DATA}/${NUMBER_OF_VALIDATION_DATA}/${NUMBER_OF_TEST_DATA}/${EDGE_TO_LEARN}/${NUMBER_OF_ABLATION}"
 
-if [ $# -ne 5 ] ; then
-  echo "Usage: $0 <path_to_scenario> <number_of_persons> <number_of_learning_edges_to_remove> <type_of_edge_to_remove> <validation_ratio>" 1>&2
+if [ $# -ne 6 ] ; then
+echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_learning_data> <nb_of_persons_in_validation_graph> <nb_of_persons_in_test_graph> <edge_to_learn> <nb_of_ablation_in_test_graph>" 1>&2
   exit 2
 fi
 
-./generate_data.sh ${NAME_OF_SCENARIO} ${NUMBER_OF_PERSONS} ${NUMBER_OF_ABLATION} ${EDGE_TO_LEARN} ${RATIO_VALID}
+
+EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+mkdir -p $EXPE
+
+cd $EXPE
+git clone ../.. .
+
+export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/"
+
+uv sync
+
+
+
+#Generate learning data and skg
+echo "Generate CSV data for learning skg" 1>&2
+uv run src/generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data_learning.csv"
+echo "Generate learning skg" 1>&2
+./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "learning"
+
+
+#Generate validation data and skg
+echo "Generate CSV data for validation skg" 1>&2
+uv run src/generate_full_data.py ${NUMBER_OF_VALIDATION_DATA} "output/${PATH_TO_EXPE}/data_validation.csv"
+echo "Generate validation skg" 1>&2
+./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "validation"
+
+#Generate test data and skg
+echo "Generate CSV data for test skg" 1>&2
+uv run src/generate_full_data.py ${NUMBER_OF_TEST_DATA} "output/${PATH_TO_EXPE}/data_test.csv"
+echo "Generate ground truth for test skg" 1>&2
+./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
+mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt"
+ 
+ 
+
+echo "** Ablation of data in the test skg" 1>&2
+uv run src/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
+
+

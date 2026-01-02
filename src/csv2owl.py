@@ -78,7 +78,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print(args)
     
-    data_filename= "tests/test_node_type_fusion/test.csv"
     export_csv_2_owl(args.data_filename, args.mapping_filename, args.biocypher_config, args.schema_config)
 
     

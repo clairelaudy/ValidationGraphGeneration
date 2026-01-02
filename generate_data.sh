@@ -40,7 +40,7 @@ rm biocypher-out/*/biocypher.ttl
 
 echo "** Launch reasoner to infer new information" 1>&2
 robot reason --reasoner hermit --input "output/$PATH_TO_SCENARIO/biocypher.ttl" --output "output/$PATH_TO_SCENARIO/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 
-#chmod a-w "output/$PATH_TO_SCENARIO/reasoned.ttl"
+chmod a-w "output/$PATH_TO_SCENARIO/reasoned.ttl"
 
 cat biocypher_config_template.yaml | sed "s,{{ONTOLOGY_URL}},output/$PATH_TO_SCENARIO/reasoned.ttl," > input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml
 
