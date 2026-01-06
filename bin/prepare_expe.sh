@@ -14,6 +14,10 @@
 #    "natsort>5.0.0",
 #    "lxml>6.0.0",
 #    "jmespath>=1.0.1",
+#    "faker",
+#    "pandas",
+#    "petname",
+#    "ontoweaver",
 # ]
 # ///
 
@@ -34,14 +38,17 @@ echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_learning_data> <nb_of_perso
 fi
 
 
-EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+#EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+EXPE=experiments/xxx
 mkdir -p $EXPE
 
 cd $EXPE
-git clone ../.. .
+#git clone ../.. .
+git clone ../.. graphGeneration
 
 export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
-export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
+#export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
+export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/src/generation/"
 
 uv sync
 
@@ -49,27 +56,27 @@ uv sync
 
 #Generate learning data and skg
 echo "Generate CSV data for learning skg" 1>&2
-uv run src/generation/generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data_learning.csv"
+uv run generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data_learning.csv"
 echo "Generate learning skg" 1>&2
-./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "learning"
+generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "learning"
 
 
 #Generate validation data and skg
 echo "Generate CSV data for validation skg" 1>&2
-uv run src/generation/generate_full_data.py ${NUMBER_OF_VALIDATION_DATA} "output/${PATH_TO_EXPE}/data_validation.csv"
+uv run generate_full_data.py ${NUMBER_OF_VALIDATION_DATA} "output/${PATH_TO_EXPE}/data_validation.csv"
 echo "Generate validation skg" 1>&2
-./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "validation"
+generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "validation"
 
 #Generate test data and skg
 echo "Generate CSV data for test skg" 1>&2
-uv run src/generation/generate_full_data.py ${NUMBER_OF_TEST_DATA} "output/${PATH_TO_EXPE}/data_test.csv"
+uv run generate_full_data.py ${NUMBER_OF_TEST_DATA} "output/${PATH_TO_EXPE}/data_test.csv"
 echo "Generate ground truth for test skg" 1>&2
-./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
+generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
 mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt"
  
  
 
 echo "** Ablation of data in the test skg" 1>&2
-uv run src/generation/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
+uv run data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
 
 
