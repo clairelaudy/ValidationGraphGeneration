@@ -25,7 +25,7 @@ TYPE_OF_GRAPH=$3
 
 
 echo "** Populate the ontology with data" 1>&2
-src/csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "input/$NAME_OF_SCENARIO/mapping.yaml" "input/$NAME_OF_SCENARIO/biocypher_config.yaml" "input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+src/generation/csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "input/$NAME_OF_SCENARIO/mapping.yaml" "input/$NAME_OF_SCENARIO/biocypher_config.yaml" "input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
 echo "** Copy Biocypher output to working directory" 1>&2
 cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"

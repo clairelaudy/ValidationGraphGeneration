@@ -40,7 +40,8 @@ mkdir -p $EXPE
 cd $EXPE
 git clone ../.. .
 
-export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/"
+export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
+export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
 
 uv sync
 
@@ -48,27 +49,27 @@ uv sync
 
 #Generate learning data and skg
 echo "Generate CSV data for learning skg" 1>&2
-uv run src/generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data_learning.csv"
+uv run src/generation/generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data_learning.csv"
 echo "Generate learning skg" 1>&2
-./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "learning"
+./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "learning"
 
 
 #Generate validation data and skg
 echo "Generate CSV data for validation skg" 1>&2
-uv run src/generate_full_data.py ${NUMBER_OF_VALIDATION_DATA} "output/${PATH_TO_EXPE}/data_validation.csv"
+uv run src/generation/generate_full_data.py ${NUMBER_OF_VALIDATION_DATA} "output/${PATH_TO_EXPE}/data_validation.csv"
 echo "Generate validation skg" 1>&2
-./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "validation"
+./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "validation"
 
 #Generate test data and skg
 echo "Generate CSV data for test skg" 1>&2
-uv run src/generate_full_data.py ${NUMBER_OF_TEST_DATA} "output/${PATH_TO_EXPE}/data_test.csv"
+uv run src/generation/generate_full_data.py ${NUMBER_OF_TEST_DATA} "output/${PATH_TO_EXPE}/data_test.csv"
 echo "Generate ground truth for test skg" 1>&2
-./generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
+./bin/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
 mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt"
  
  
 
 echo "** Ablation of data in the test skg" 1>&2
-uv run src/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
+uv run src/generation/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
 
 
