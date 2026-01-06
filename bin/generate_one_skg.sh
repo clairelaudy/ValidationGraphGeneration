@@ -46,10 +46,10 @@ cp "$out/skg.txt" "output/$PATH_TO_EXPE/graph_$TYPE_OF_GRAPH.txt"
 #cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
 echo "OUTPUT entity_types.txt :" 1>&2
-cp "$out/entity_types.txt" "output/$PATH_TO_EXPE/entity_types.txt"
+cat "$out/entity_types.txt" >> "output/$PATH_TO_EXPE/entity_types.txt"
 #cat "output/$PATH_TO_SCENARIO/entity_types.txt"
 
 echo "OUTPUT entity_names.txt :" 1>&2
-cp "$out/entity_names.txt" "output/$PATH_TO_EXPE/entity_names.txt"
+cat "$out/entity_names.txt" >> "output/$PATH_TO_EXPE/entity_names.txt"
 #cat "output/$PATH_TO_SCENARIO/entity_names.txt"
 

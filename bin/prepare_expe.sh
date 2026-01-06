@@ -74,9 +74,18 @@ echo "Generate ground truth for test skg" 1>&2
 generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
 mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt"
  
- 
-
 echo "** Ablation of data in the test skg" 1>&2
 uv run data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
+
+#Remove duplicates in entity_types.txt and entity_names.txt
+
+sort -u "output/${PATH_TO_EXPE}/entity_types.txt" > "output/${PATH_TO_EXPE}/entity_types_no_duplicates.txt"
+rm "output/${PATH_TO_EXPE}/entity_types.txt" 
+mv "output/${PATH_TO_EXPE}/entity_types_no_duplicates.txt" "output/${PATH_TO_EXPE}/entity_types.txt"
+
+sort -u "output/${PATH_TO_EXPE}/entity_names.txt" > "output/${PATH_TO_EXPE}/entity_names_no_duplicates.txt"
+rm "output/${PATH_TO_EXPE}/entity_names.txt" 
+mv "output/${PATH_TO_EXPE}/entity_names_no_duplicates.txt" "output/${PATH_TO_EXPE}/entity_names.txt"
+
 
 
