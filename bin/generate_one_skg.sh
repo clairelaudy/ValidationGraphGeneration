@@ -45,6 +45,10 @@ echo "OUTPUT Semantic Network :" 1>&2
 cp "$out/skg.txt" "output/$PATH_TO_EXPE/graph_$TYPE_OF_GRAPH.txt"
 #cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
+echo "OUTPUT brg.txt :" 1>&2
+cat "$out/brg.txt" >> "output/$PATH_TO_EXPE/brg.txt"
+#cat "output/$PATH_TO_SCENARIO/entity_types.txt"
+
 echo "OUTPUT entity_types.txt :" 1>&2
 cat "$out/entity_types.txt" >> "output/$PATH_TO_EXPE/entity_types.txt"
 #cat "output/$PATH_TO_SCENARIO/entity_types.txt"

@@ -79,6 +79,10 @@ uv run data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXP
 
 #Remove duplicates in entity_types.txt and entity_names.txt
 
+sort -u "output/${PATH_TO_EXPE}/brg.txt" > "output/${PATH_TO_EXPE}/brg_no_duplicates.txt"
+rm "output/${PATH_TO_EXPE}/brg.txt" 
+mv "output/${PATH_TO_EXPE}/brg_no_duplicates.txt" "output/${PATH_TO_EXPE}/brg.txt"
+
 sort -u "output/${PATH_TO_EXPE}/entity_types.txt" > "output/${PATH_TO_EXPE}/entity_types_no_duplicates.txt"
 rm "output/${PATH_TO_EXPE}/entity_types.txt" 
 mv "output/${PATH_TO_EXPE}/entity_types_no_duplicates.txt" "output/${PATH_TO_EXPE}/entity_types.txt"
