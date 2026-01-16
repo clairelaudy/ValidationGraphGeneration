@@ -77,7 +77,7 @@ mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt
 echo "** Ablation of data in the test skg" 1>&2
 uv run data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
 
-#Remove duplicates in entity_types.txt and entity_names.txt
+#Remove duplicates in brg.txt entity_types.txt and entity_names.txt
 
 sort -u "output/${PATH_TO_EXPE}/brg.txt" > "output/${PATH_TO_EXPE}/brg_no_duplicates.txt"
 rm "output/${PATH_TO_EXPE}/brg.txt" 
