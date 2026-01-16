@@ -40,17 +40,17 @@ fi
 #Generate the independant learing, validation and test skgs
 ./bin/prepare_expe.sh ${NAME_OF_SCENARIO} ${NUMBER_OF_LEARNING_DATA} ${NUMBER_OF_VALIDATION_DATA} ${NUMBER_OF_TEST_DATA} ${EDGE_TO_LEARN} ${NUMBER_OF_ABLATION}
 
-# #EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
-# EXPE=experiments/xxx
-# mkdir -p $EXPE
+#EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+EXPE=experiments/xxx
+#mkdir -p $EXPE
 
-# cd $EXPE
+cd $EXPE
 # #git clone ../.. .
 # git clone ../.. graphGeneration
 
-# export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
-# #export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
-# export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/src/generation/"
+export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
+export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
+export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/src/generation/"
 
 # uv sync
 
@@ -93,24 +93,29 @@ fi
 # rm "output/${PATH_TO_EXPE}/entity_names.txt" 
 # mv "output/${PATH_TO_EXPE}/entity_names_no_duplicates.txt" "output/${PATH_TO_EXPE}/entity_names.txt"
 
-EXPE=experiments/xxx
-cd ${EXPE}
 
 # Add the lines of graph_validation.txt that contain ${EDGE_TO_PREDICT} in edges_for_validation.txt
 # And the other ones in graph_learning_with_validation_and_test.txt
-grep "${EDGE_TO_LEARN}" "output/${PATH_TO_EXPE}/graph_validation.txt" > "output/${PATH_TO_EXPE}/edges_for_validation.txt"
+# And add all the validation graph to the ground truth graph
+grep "${EDGE_TO_LEARN}" "output/${PATH_TO_EXPE}/graph_validation.txt" >> "output/${PATH_TO_EXPE}/edges_for_validation.txt"
 grep -v "${EDGE_TO_LEARN}" "output/${PATH_TO_EXPE}/graph_validation.txt" > "output/${PATH_TO_EXPE}/graph_learning_dup.txt"
+cat "output/${PATH_TO_EXPE}/graph_learning.txt" "output/${PATH_TO_EXPE}/graph_validation.txt" > "output/${PATH_TO_EXPE}/ground_truth_dup.txt"
+ 
 
-# Add the nodes and edges of the test graph (except the one to be queried) to the learning graph
+# Add the nodes and edges of the test graph to the ground truth graph
+cat "output/${PATH_TO_EXPE}/graph_test_gt.txt" >> "output/${PATH_TO_EXPE}/ground_truth_dup.txt"
+
 # And add the edges to be queried in a edges_to_predict.txt file for BioPathNet
-cat "output/${PATH_TO_EXPE}/graph_learning.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt" > "output/${PATH_TO_EXPE}/graph_learning_dup.txt"
-#comm -23 "<(sort 'output/${PATH_TO_EXPE}/graph_test_gt.txt')" "<(sort 'output/${PATH_TO_EXPE}/graph_test.txt')" > "output/${PATH_TO_EXPE}/edges_to_predict.txt"
-sort output/${PATH_TO_EXPE}/graph_test_gt.txt > output/${PATH_TO_EXPE}/graph_test_gt_s.txt 
-sort output/${PATH_TO_EXPE}/graph_test.txt > output/${PATH_TO_EXPE}/graph_test_s.txt 
-comm -23 output/${PATH_TO_EXPE}/graph_test_gt_s.txt output/${PATH_TO_EXPE}/graph_test_s.txt > output/${PATH_TO_EXPE}/edges_to_predict.txt
-rm output/${PATH_TO_EXPE}/graph_test_gt_s.txt output/${PATH_TO_EXPE}/graph_test_s.txt 
+uv run generate_edges_to_predict.py ${EDGE_TO_LEARN} "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/edges_to_predict.txt" 
+
+# sort output/${PATH_TO_EXPE}/graph_test_gt.txt > output/${PATH_TO_EXPE}/graph_test_gt_s.txt 
+# sort output/${PATH_TO_EXPE}/graph_test.txt > output/${PATH_TO_EXPE}/graph_test_s.txt 
+# comm -23 output/${PATH_TO_EXPE}/graph_test_gt_s.txt output/${PATH_TO_EXPE}/graph_test_s.txt > output/${PATH_TO_EXPE}/edges_to_predict.txt
+# rm output/${PATH_TO_EXPE}/graph_test_gt_s.txt output/${PATH_TO_EXPE}/graph_test_s.txt 
 
 # Remove duplicates
+sort -u "output/${PATH_TO_EXPE}/ground_truth_dup.txt" > "output/${PATH_TO_EXPE}/ground_truth.txt"
 sort -u "output/${PATH_TO_EXPE}/graph_learning_dup.txt" > "output/${PATH_TO_EXPE}/graph_learning_with_validation_and_test.txt"
+rm "output/${PATH_TO_EXPE}/ground_truth_dup.txt"
 rm "output/${PATH_TO_EXPE}/graph_learning_dup.txt"
 
