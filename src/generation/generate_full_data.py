@@ -22,6 +22,7 @@
 
 import argparse
 import os
+import sys
 import pandas as pd
 
 import random
@@ -104,8 +105,12 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("nb_persons")
 	parser.add_argument("output_file_name")
+	parser.add_argument("-s", "--seed", type=int, default=0, metavar="INT",
+	    help="Pseudo-random generator seed (0 = epoch, the default).")
 	args = parser.parse_args()
-	print(args)
+	print(args, file=sys.stderr)
+
+	random.seed(args.seed)
 
 	fake = Faker()
 	fake.add_provider(person)
