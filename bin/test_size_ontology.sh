@@ -33,7 +33,7 @@ main () {
     fi
 
     if [[ ! -f config/env.sh ]] ; then
-        echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)."
+        echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)." 1>&2
         exit 3
     else
         source config/env.sh
@@ -73,6 +73,9 @@ main () {
 
     echo "** Launch reasoner to infer new information" 1>&2
     /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
+
+    echo "$EXPE"
 }
 
-{ time main $*; } 2> scen${1}_nb${2}_seed${3}_fixed${4}.log
+{ time EXPE=$(main $*); } 2> /tmp/validation_graph.log
+cp /tmp/validation_graph.log "$EXPE/scen${1}_nb${2}_seed${3}_fixed${4}.log"
