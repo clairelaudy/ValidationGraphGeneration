@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 # /// script
 # dependencies = [
 #    "biocypher<1.0.0,>=0.11.0",
@@ -19,41 +19,60 @@
 
 set -ex
 
-NAME_OF_SCENARIO=$1
-NUMBER_OF_LEARNING_DATA=$2
+main () {
+    NAME_OF_SCENARIO=$1
+    NUMBER_OF_LEARNING_DATA=$2
+    SEED=$3
+    FIXED_EXPE=$4
 
-PATH_TO_EXPE="${NAME_OF_SCENARIO}/${NUMBER_OF_LEARNING_DATA}"
+    PATH_TO_EXPE="${NAME_OF_SCENARIO}/${NUMBER_OF_LEARNING_DATA}"
 
-if [ $# -ne 2 ] ; then
-echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_data>" 1>&2
-  exit 2
-fi
+    if [[ $# -lt 2 || $# -gt 4 ]] ; then
+      echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_data> [seed] [fixed_expe_name]" 1>&2
+      exit 2
+    fi
 
+    if [[ ! -f config/env.sh ]] ; then
+        echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)."
+        exit 3
+    else
+        source config/env.sh
+    fi
 
-#EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
-EXPE=experiments/xxx
-mkdir -p $EXPE
+    if [[ -n "$SEED" ]] ; then
+        SEED=0
+    fi
 
-cd $EXPE
-#git clone ../.. .
-git clone ../.. graphGeneration
+    EXPE=""
+    if [[ -n "$FIXED_EXPE" ]] ; then
+        EXPE="experiments/$(date -Iseconds|sed 's/:/_/g')"
+    else
+        EXPE="experiments/$FIXED_EXPE"
+    fi
+    mkdir -p $EXPE
 
-export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
-#export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
-export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/src/generation/"
+    cd $EXPE
+    #git clone ../.. .
+    git clone ../.. graphGeneration
 
-uv sync
+    XPDIR=$(pwd)
+    export PATH="$PATH:$XPDIR/graphGeneration/bin/:$XPDIR/graphGeneration/src/generation/"
 
-#Generate learning data and skg
-echo "Generate CSV data for learning skg" 1>&2
-uv run generate_full_data.py ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
+    uv sync
 
-echo "** Populate the ontology with data" 1>&2
-csv2owl.py "output/$PATH_TO_EXPE/data.csv" "graphGeneration/input/$NAME_OF_SCENARIO/mapping.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+    #Generate learning data and skg
+    echo "Generate CSV data for learning skg" 1>&2
+    uv run generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
 
-echo "** Copy Biocypher output to working directory" 1>&2
-cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
-rm biocypher-out/*/biocypher.ttl
+    echo "** Populate the ontology with data" 1>&2
+    csv2owl.py "output/$PATH_TO_EXPE/data.csv" "graphGeneration/input/$NAME_OF_SCENARIO/mapping.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
-echo "** Launch reasoner to infer new information" 1>&2
-/usr/bin/time -o "output/$PATH_TO_EXPE/time.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 
+    echo "** Copy Biocypher output to working directory" 1>&2
+    cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
+    rm biocypher-out/*/biocypher.ttl
+
+    echo "** Launch reasoner to infer new information" 1>&2
+    /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
+}
+
+{ time main $*; } 2> scen${1}_nb${2}_seed${3}_fixed${4}.log
