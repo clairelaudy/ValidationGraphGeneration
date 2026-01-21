@@ -44,7 +44,7 @@ main () {
     fi
 
     EXPE=""
-    if [[ -n "$FIXED_EXPE" ]] ; then
+    if [[ -z "$FIXED_EXPE" ]] ; then
         EXPE="experiments/$(date -Iseconds|sed 's/:/_/g')"
     else
         EXPE="experiments/$FIXED_EXPE"
