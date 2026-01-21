@@ -79,7 +79,8 @@ main () {
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     
     echo "** Launch reasoner to infer new information" 1>&2
-    /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
+    time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
+    # /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
 
     echo "$EXPE"
 }
