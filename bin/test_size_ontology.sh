@@ -73,12 +73,10 @@ main () {
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
     rm biocypher-out/*/biocypher.ttl
 
-    LOG_FILE="$EXPE/scen-${NAME_OF_SCENARIO}_nb-${NUMBER_OF_LEARNING_DATA}_seed-${SEED}_expe-${FIXED_EXPE}.log"
-    touch $LOG_FILE
-    echo -n "Number of owl:Class: " > $LOG_FILE
-    grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
-    echo -n "Number of owl:NamedIndividual: " >> $LOG_FILE
-    grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
+    echo -n "Number of owl:Class: " 1>&2
+    grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
+    echo -n "Number of owl:NamedIndividual: " 1>&2
+    grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     
     echo "** Launch reasoner to infer new information" 1>&2
     /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
