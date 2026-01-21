@@ -39,7 +39,7 @@ main () {
         source config/env.sh
     fi
 
-    if [[ -n "$SEED" ]] ; then
+    if [[ -z "$SEED" ]] ; then
         SEED=0
     fi
 
