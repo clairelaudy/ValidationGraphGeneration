@@ -30,8 +30,7 @@ import pandas as pd
 import biocypher
 import ontoweaver
 
-#from generation.pets_transformer import pets_transformer
-import pets_transformer
+from pets_transformer import pets_transformer
 
 def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_config):
 
