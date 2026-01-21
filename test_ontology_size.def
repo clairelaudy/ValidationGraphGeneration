@@ -28,6 +28,7 @@ From: ubuntu:20.04
     # apt clean 
  
     cd /ValidationGraphGeneration/
+    cp config/env-dist.sh config/env.sh
     UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
     
 %environment 
