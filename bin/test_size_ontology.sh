@@ -73,8 +73,8 @@ main () {
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
     rm biocypher-out/*/biocypher.ttl
 
-    LOG_FILE="$EXPE/scen${1}_nb${2}_seed${3}_fixed${4}.log"
-    echo -n "Number of owl:Class: " >> $LOG_FILE
+    LOG_FILE="$EXPE/scen-${NAME_OF_SCENARIO}_nb-${NUMBER_OF_LEARNING_DATA}_seed-${SEED}_expe-${FIXED_EXPE}.log"
+    echo -n "Number of owl:Class: " > $LOG_FILE
     grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
     echo -n "Number of owl:NamedIndividual: " >> $LOG_FILE
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
