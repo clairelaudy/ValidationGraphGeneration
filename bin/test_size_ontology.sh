@@ -32,11 +32,12 @@ main () {
       exit 2
     fi
 
-    if [[ ! -f config/env.sh ]] ; then
+    VGG_DIR=$(dirname $0)/..
+    if [[ ! -f $VGG_DIR/config/env.sh ]] ; then
         echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)." 1>&2
         exit 3
     else
-        source config/env.sh
+        source $VGG_DIR/config/env.sh
     fi
 
     if [[ -z "$SEED" ]] ; then
@@ -52,15 +53,18 @@ main () {
     mkdir -p $EXPE
 
     cd $EXPE
+    rm -rf graphGeneration
     #git clone ../.. .
     #git clone ../.. graphGeneration
-    rm -rf graphGeneration
-    git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
+    #git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
+    cp -r $VGG_DIR graphGeneration
 
     XPDIR=$(pwd)
     export PATH="$PATH:$XPDIR/graphGeneration/bin/:$XPDIR/graphGeneration/src/generation/"
 
+    cd graphGeneration
     uv sync
+    cd ..
 
     #Generate learning data and skg
     echo "Generate CSV data for learning skg" 1>&2
@@ -79,11 +83,11 @@ main () {
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     
     echo "** Launch reasoner to infer new information" 1>&2
-    /usr/bin/time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" &>&2
+    time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 1>&2
 
     echo "$EXPE"
 }
 
-{ /usr/bin/time main $*; } 1> /tmp/validation_graph.out 2> >(tee /tmp/validation_graph.log)
+{ time main $*; } 1> /tmp/validation_graph.out 2> >(tee /tmp/validation_graph.log)
 EXPE=$(cat /tmp/validation_graph.out)
 cp /tmp/validation_graph.log "$EXPE/scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"

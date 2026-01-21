@@ -11,8 +11,7 @@ From: ubuntu:20.04
     # apt -y dist-upgrade 
  
     # Install dependencies for your project. 
-    apt -y install git
-    apt -y install curl
+    apt -y install git curl python3 bash
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
     echo "export PATH=/root/.local/bin:\$PATH" >> $APPTAINER_ENVIRONMENT
@@ -21,7 +20,7 @@ From: ubuntu:20.04
     # git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration
     mkdir -p /ValidationGraphGeneration/
     mkdir -p /experiments/
-    # chmod -R a+rw /experiments/
+    chmod -R a+rw /experiments/
  
     # Clean-up of the APT cache (will lighten the container). 
     # apt -y purge software-properties-common curl
@@ -29,18 +28,21 @@ From: ubuntu:20.04
     # apt -y autoclean 
     # apt clean 
  
-    cd /ValidationGraphGeneration/
-    touch config/env.sh
-    UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
+    #cd /ValidationGraphGeneration/
+    #touch config/env.sh
+    #UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
     
 %environment 
-    export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/bin/"
+    export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/bin"
  
 %runscript 
     # When executing the container, this will be called, 
     # and pass all the command line arguments. 
-    cd /
+    cd /ValidationGraphGeneration
+    UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
+
     # Will output in /experiments/
+    cd /
     test_size_ontology.sh $*
  
 %labels 
