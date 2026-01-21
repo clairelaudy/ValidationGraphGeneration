@@ -54,6 +54,7 @@ main () {
     cd $EXPE
     #git clone ../.. .
     #git clone ../.. graphGeneration
+    rm -rf graphGeneration
     git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
 
     XPDIR=$(pwd)
