@@ -79,12 +79,11 @@ main () {
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     
     echo "** Launch reasoner to infer new information" 1>&2
-    time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" &>&2
-    # /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
+    /usr/bin/time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" &>&2
 
     echo "$EXPE"
 }
 
-{ time main $*; } 1> /tmp/validation_graph.out 2> >(tee /tmp/validation_graph.log)
+{ /usr/bin/time main $*; } 1> /tmp/validation_graph.out 2> >(tee /tmp/validation_graph.log)
 EXPE=$(cat /tmp/validation_graph.out)
 cp /tmp/validation_graph.log "$EXPE/scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
