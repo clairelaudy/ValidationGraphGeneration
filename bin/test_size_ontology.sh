@@ -71,11 +71,18 @@ main () {
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
     rm biocypher-out/*/biocypher.ttl
 
+    LOG_FILE="$EXPE/scen${1}_nb${2}_seed${3}_fixed${4}.log"
+    echo -n "Number of owl:Class: " >> $LOG_FILE
+    grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
+    echo -n "Number of owl:NamedIndividual: " >> $LOG_FILE
+    grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l >> $LOG_FILE
+    
     echo "** Launch reasoner to infer new information" 1>&2
     /usr/bin/time -o "output/$PATH_TO_EXPE/time_reasoner.txt" robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty"
 
     echo "$EXPE"
 }
 
-{ time EXPE=$(main $*); } 2> /tmp/validation_graph.log
+{ time main $*; } 2> /tmp/validation_graph.log 1> /tmp/validation_graph.out
+EXPE=$(cat /tmp/validation_graph.out)
 cp /tmp/validation_graph.log "$EXPE/scen${1}_nb${2}_seed${3}_fixed${4}.log"
