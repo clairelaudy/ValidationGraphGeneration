@@ -85,10 +85,12 @@ main () {
     echo "** Launch reasoner to infer new information" 1>&2
     time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 1>&2
 
-    echo "$EXPE"
+    echo "$EXPE" > /tmp/validation_graph_expe.out
 }
 
-{ time main $*; } 1> >(tee /tmp/validation_graph.out) 2> >(tee /tmp/validation_graph.log)
-EXPE=$(cat /tmp/validation_graph.out)
+{ time main $*; } 2>&1 | tee /tmp/validation_graph.log
+
+# We need the location of the expe to backup the log.
+EXPE=$(cat /tmp/validation_graph_expe.out)
 cp /tmp/validation_graph.log "$EXPE/scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
 
