@@ -17,7 +17,7 @@
 # ]
 # ///
 
-set -ex
+# set -ex
 
 main () {
     NAME_OF_SCENARIO=$1
@@ -88,6 +88,7 @@ main () {
     echo "$EXPE"
 }
 
-{ time main $*; } 1> /tmp/validation_graph.out 2> >(tee /tmp/validation_graph.log)
+{ time main $*; } 1> >(tee /tmp/validation_graph.out) 2> >(tee /tmp/validation_graph.log)
 EXPE=$(cat /tmp/validation_graph.out)
 cp /tmp/validation_graph.log "$EXPE/scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
+

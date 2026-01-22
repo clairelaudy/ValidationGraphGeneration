@@ -21,6 +21,7 @@
 # ]
 # ///
 
+import sys
 import argparse
 import logging
 
@@ -41,7 +42,7 @@ def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_confi
     logging.info(f"With mapping from `{mapping_filename}'")
 
     ontoweaver.transformer.register(pets_transformer)
-            
+
     nodes, edges = ontoweaver.extract(filename_to_mapping)
     bc_nodes, bc_edges = ontoweaver.ow2bc(nodes), ontoweaver.ow2bc(edges)
 
@@ -72,7 +73,7 @@ def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_confi
     # Fuse redundant nodes:
     fusioner = ontoweaver.fusion.Reduce(fuser)
     fusioned = fusioner(congregater)
-    
+
     # Import OW triples into BC triples
     bc.write_nodes( ontoweaver.ow2bc(fusioned) )
     bc.write_edges( bc_edges )
@@ -81,15 +82,15 @@ def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_confi
 
 
 if __name__ == "__main__":
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument("data_filename")
     parser.add_argument("mapping_filename")
     parser.add_argument("biocypher_config")
     parser.add_argument("schema_config")
     args = parser.parse_args()
-    print(args)
-    
+    print(args, file=sys.stderr)
+
     export_csv_2_owl(args.data_filename, args.mapping_filename, args.biocypher_config, args.schema_config)
 
-    
+
