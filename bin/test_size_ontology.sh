@@ -32,13 +32,13 @@ main () {
       exit 2
     fi
 
-    VGG_DIR=$(dirname $0)/..
-    if [[ ! -f $VGG_DIR/config/env.sh ]] ; then
-        echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)." 1>&2
-        exit 3
-    else
-        source $VGG_DIR/config/env.sh
-    fi
+    # VGG_DIR=$(dirname $0)/..
+    # if [[ ! -f $VGG_DIR/config/env.sh ]] ; then
+    #     echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)." 1>&2
+    #     exit 3
+    # else
+    #     source $VGG_DIR/config/env.sh
+    # fi
 
     if [[ -z "$SEED" ]] ; then
         SEED=0

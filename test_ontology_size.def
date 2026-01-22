@@ -30,7 +30,7 @@ From: ubuntu:24.04
     # apt clean
 
     cd /ValidationGraphGeneration/
-    touch config/env.sh
+    # touch config/env.sh
     UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
 
     cd /root/.local/bin/
