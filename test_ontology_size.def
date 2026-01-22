@@ -17,8 +17,9 @@ From: ubuntu:24.04
     echo "export PATH=/root/.local/bin:\$PATH" >> $APPTAINER_ENVIRONMENT
 
     # Download something.
-    # git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration
-    mkdir -p /ValidationGraphGeneration/
+    cd /
+    git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration
+    # mkdir -p /ValidationGraphGeneration/
     mkdir -p /experiments/
     chmod -R a+rw /experiments/
 
@@ -28,9 +29,9 @@ From: ubuntu:24.04
     # apt -y autoclean
     # apt clean
 
-    #cd /ValidationGraphGeneration/
-    #touch config/env.sh
-    #UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
+    cd /ValidationGraphGeneration/
+    touch config/env.sh
+    UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
 
     cd /root/.local/bin/
     wget https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar
@@ -43,8 +44,8 @@ From: ubuntu:24.04
 %runscript
     # When executing the container, this will be called,
     # and pass all the command line arguments.
-    cd /ValidationGraphGeneration
-    UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
+    # cd /ValidationGraphGeneration
+    # UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
 
     # Will output in /experiments/
     cd /

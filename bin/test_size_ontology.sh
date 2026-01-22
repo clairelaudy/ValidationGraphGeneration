@@ -81,7 +81,7 @@ main () {
     grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     echo -n "Number of owl:NamedIndividual: " 1>&2
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
-    
+
     echo "** Launch reasoner to infer new information" 1>&2
     time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 1>&2
 
