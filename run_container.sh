@@ -2,9 +2,9 @@
 
 rm -rf experiments/*
 
-cp -rf /Users/claudy/work/projects/ValidationGraphGeneration ~/
+cp -rf /Users/nojhan/travail/code/ValidationGraphGeneration ~/
 
-APPTAINER_BINDPATH=~/ValidationGraphGeneration:/ValidationGraphGeneration,/home/claudy.linux/experiments:/experiments \
+APPTAINER_BINDPATH=~/ValidationGraphGeneration:/ValidationGraphGeneration,/home/nojhan.linux/experiments:/experiments \
   apptainer run test_ontology_size.sif simplest 10 1 DEBUG
-  
-cat /tmp/validation_graph.log 
+
+cat /tmp/validation_graph.log

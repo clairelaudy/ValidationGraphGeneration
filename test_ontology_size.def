@@ -1,50 +1,55 @@
 Bootstrap: docker
-From: ubuntu:20.04 
-%post 
-    # Update the available packages list. 
-    apt -y update 
-    # And add the "universe" repository (allow to install many more software). 
+From: ubuntu:24.04
+%post
+    # Update the available packages list.
+    apt -y update
+    # And add the "universe" repository (allow to install many more software).
     apt -y install software-properties-common time
-    # add-apt-repository universe 
-    # apt -y update 
-    # Update the operating systems (install last versions with bugfixes). 
-    # apt -y dist-upgrade 
- 
-    # Install dependencies for your project. 
-    apt -y install git curl python3 bash
+    # add-apt-repository universe
+    # apt -y update
+    # Update the operating systems (install last versions with bugfixes).
+    # apt -y dist-upgrade
+
+    # Install dependencies for your project.
+    apt -y install git curl python3 bash wget openjdk-11-jre
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
     echo "export PATH=/root/.local/bin:\$PATH" >> $APPTAINER_ENVIRONMENT
-    
-    # Download something. 
+
+    # Download something.
     # git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration
     mkdir -p /ValidationGraphGeneration/
     mkdir -p /experiments/
     chmod -R a+rw /experiments/
- 
-    # Clean-up of the APT cache (will lighten the container). 
+
+    # Clean-up of the APT cache (will lighten the container).
     # apt -y purge software-properties-common curl
-    # apt -y --purge autoremove 
-    # apt -y autoclean 
-    # apt clean 
- 
+    # apt -y --purge autoremove
+    # apt -y autoclean
+    # apt clean
+
     #cd /ValidationGraphGeneration/
     #touch config/env.sh
     #UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
-    
-%environment 
+
+    cd /root/.local/bin/
+    wget https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar
+    wget https://raw.githubusercontent.com/ontodev/robot/master/bin/robot
+    chmod a+x ./robot
+
+%environment
     export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/bin"
- 
-%runscript 
-    # When executing the container, this will be called, 
-    # and pass all the command line arguments. 
+
+%runscript
+    # When executing the container, this will be called,
+    # and pass all the command line arguments.
     cd /ValidationGraphGeneration
     UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
 
     # Will output in /experiments/
     cd /
     test_size_ontology.sh $*
- 
-%labels 
+
+%labels
     Author Claire Laudy
     Author Johann Dreo
