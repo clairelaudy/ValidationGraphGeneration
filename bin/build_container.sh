@@ -20,16 +20,21 @@ function git_archive()
     echo $name.tar.xz
 }
 
+EXPE=$(pwd)
+
+# Go to the repository
+cd $(dirname $0)/..
+
 if [[ ! -f "test_size_ontology.def" ]] ; then
-    echo "ERROR: run this script from within the ValidationGraphGeneration repository." >&2
+    echo "ERROR: the given path does not point to a ValidationGraphGeneration repository." >&2
     exit 2
 fi
 
 # If the repository is not clean
 # (i.e. there are uncommitted changes)
+MSG=""
 if ! git diff-index --quiet HEAD -- ; then
-    echo "ERROR: this repository has uncommited changes, I would archive the last committed version. Please commit before running this script, or else you will not build what you expects." >&2
-    exit 1
+    MSG="WARNING: this repository has uncommited changes, I will archive the last committed version. Please commit before running this script, or else you will not build what you expects."
 fi
 
 ARCHIVE=$(git_archive .)
@@ -38,7 +43,12 @@ if command -v module ; then
     module load apptainer
 fi
 # apptainer cache clean -f
-apptainer build -F test_size_ontology__$(git_rev).sif test_size_ontology.def
+REV=$(git_rev)
+apptainer build -F test_size_ontology__$REV.sif test_size_ontology.def
+
+mv $ARCHIVE $EXPE/
+mv test_size_ontology__$REV.sif $EXPE/
+ln -s $EXPE/test_size_ontology__$REV.sif $EXPE/test_size_ontology.sif
 
 echo "Archived code version in: $ARCHIVE" >&2
-
+echo "$MSG" >&2
