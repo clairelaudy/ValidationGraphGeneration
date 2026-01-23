@@ -15,7 +15,7 @@ fi
 
 module load apptainer
 
-export APPTAINER_BINDPATH=$(pwd):/experiments
+export APPTAINER_BINDPATH=$(pwd):/output/
 
 apptainer run test_ontology_size.sif simplest $SIZE $SLURM_JOB_ID
 
