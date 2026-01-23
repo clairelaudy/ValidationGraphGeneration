@@ -56,8 +56,8 @@ main () {
     rm -rf graphGeneration
     #git clone ../.. .
     #git clone ../.. graphGeneration
-    #git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
-    cp -r $VGG_DIR graphGeneration
+    git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
+    # cp -r $VGG_DIR graphGeneration
 
     XPDIR=$(pwd)
     export PATH="$PATH:$XPDIR/graphGeneration/bin/:$XPDIR/graphGeneration/src/generation/"
