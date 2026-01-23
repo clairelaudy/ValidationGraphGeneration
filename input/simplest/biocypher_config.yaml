@@ -5,7 +5,7 @@ biocypher:
 
     # Ontology configuration
     head_ontology:
-        url: graphGeneration/input/simplest/ontology.ttl
+        url: ./input/simplest/ontology.ttl
         root_node: Biocypherroot
 
 owl:

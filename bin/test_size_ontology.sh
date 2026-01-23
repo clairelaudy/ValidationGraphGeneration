@@ -53,10 +53,12 @@ main () {
     uv run $VGG/src/generation/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
 
     echo "** Populate the ontology with data" 1>&2
-    csv2owl.py "output/$PATH_TO_EXPE/data.csv" \
-        "$VGG/input/$NAME_OF_SCENARIO/mapping.yaml" \
-        "$VGG/input/$NAME_OF_SCENARIO/biocypher_config.yaml" \
-        "$VGG/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+    mkdir -p $EXPE/input
+    cp -r "$VGG/input/$NAME_OF_SCENARIO" $EXPE/input/
+    $VGG/src/generation/csv2owl.py "output/$PATH_TO_EXPE/data.csv" \
+        "input/$NAME_OF_SCENARIO/mapping.yaml" \
+        "input/$NAME_OF_SCENARIO/biocypher_config.yaml" \
+        "input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
     echo "** Copy Biocypher output to working directory" 1>&2
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"

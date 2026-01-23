@@ -42,12 +42,13 @@ ARCHIVE=$(git_archive .)
 if command -v module ; then
     module load apptainer
 fi
-# apptainer cache clean -f
+apptainer cache clean -f
 REV=$(git_rev)
 apptainer build -F test_size_ontology__$REV.sif test_size_ontology.def
 
 mv $ARCHIVE $EXPE/
 mv test_size_ontology__$REV.sif $EXPE/
+rm -f $EXPE/test_size_ontology.sif
 ln -s $EXPE/test_size_ontology__$REV.sif $EXPE/test_size_ontology.sif
 
 echo "Archived code version in: $ARCHIVE" >&2
