@@ -50,7 +50,7 @@ main () {
 
     #Generate learning data and skg
     echo "Generate CSV data for learning skg" 1>&2
-    uv run $VGG/bin/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
+    uv run $VGG/src/generation/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
 
     echo "** Populate the ontology with data" 1>&2
     csv2owl.py "output/$PATH_TO_EXPE/data.csv" \

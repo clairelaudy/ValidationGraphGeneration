@@ -40,6 +40,7 @@ From: ubuntu:24.04
 
 %environment
     export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/bin"
+    export UV_CACHE_DIR=/tmp/uv_cache
 
 %runscript
     # When executing the container, this will be called,

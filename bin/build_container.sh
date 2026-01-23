@@ -27,5 +27,5 @@ if command -v module ; then
     module load apptainer
 fi
 apptainer cache clean -f
-apptainer build -F test_ontology_size.sif $VGG/test_ontology_size.def
+apptainer build -F test_size_ontology.sif $VGG/test_size_ontology.def
 
