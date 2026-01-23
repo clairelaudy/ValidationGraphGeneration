@@ -17,7 +17,8 @@
 # ]
 # ///
 
-# set -ex
+set -e
+set -o pipefail
 
 main () {
     NAME_OF_SCENARIO=$1
@@ -27,51 +28,35 @@ main () {
 
     PATH_TO_EXPE="${NAME_OF_SCENARIO}/${NUMBER_OF_LEARNING_DATA}"
 
+    PWD=$(pwd)
+    VGG=$(dirname $0)/..
+
     if [[ $# -lt 2 || $# -gt 4 ]] ; then
       echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_data> [seed] [fixed_expe_name]" 1>&2
       exit 2
     fi
 
-    # VGG_DIR=$(dirname $0)/..
-    # if [[ ! -f $VGG_DIR/config/env.sh ]] ; then
-    #     echo "ERROR: config/env.sh not found, please edit this file to set your PATH and PYTHONPATH (it can be empty as well)." 1>&2
-    #     exit 3
-    # else
-    #     source $VGG_DIR/config/env.sh
-    # fi
-
     if [[ -z "$SEED" ]] ; then
         SEED=0
+        echo "Seed set to Epoch" >&2
     fi
 
-    EXPE=""
-    if [[ -z "$FIXED_EXPE" ]] ; then
-        EXPE="experiments/$(date -Iseconds|sed 's/:/_/g')"
-    else
-        EXPE="experiments/$FIXED_EXPE"
+    EXPE="$PWD"
+    if [[ -n "$FIXED_EXPE" ]] ; then
+        EXPE="$FIXED_EXPE"
     fi
     mkdir -p $EXPE
-
     cd $EXPE
-    rm -rf graphGeneration
-    #git clone ../.. .
-    #git clone ../.. graphGeneration
-    git clone --branch main --single-branch --recurse-submodules https://github.com/clairelaudy/ValidationGraphGeneration graphGeneration
-    # cp -r $VGG_DIR graphGeneration
-
-    XPDIR=$(pwd)
-    export PATH="$PATH:$XPDIR/graphGeneration/bin/:$XPDIR/graphGeneration/src/generation/"
-
-    cd graphGeneration
-    uv sync
-    cd ..
 
     #Generate learning data and skg
     echo "Generate CSV data for learning skg" 1>&2
-    uv run generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
+    uv run $VGG/bin/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
 
     echo "** Populate the ontology with data" 1>&2
-    csv2owl.py "output/$PATH_TO_EXPE/data.csv" "graphGeneration/input/$NAME_OF_SCENARIO/mapping.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+    csv2owl.py "output/$PATH_TO_EXPE/data.csv" \
+        "$VGG/input/$NAME_OF_SCENARIO/mapping.yaml" \
+        "$VGG/input/$NAME_OF_SCENARIO/biocypher_config.yaml" \
+        "$VGG/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
     echo "** Copy Biocypher output to working directory" 1>&2
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
@@ -83,7 +68,10 @@ main () {
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
 
     echo "** Launch reasoner to infer new information" 1>&2
-    time robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 1>&2
+    time robot reason --reasoner hermit \
+        --input  "output/$PATH_TO_EXPE/biocypher.ttl" \
+        --output "output/$PATH_TO_EXPE/reasoned.ttl" \
+        --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 1>&2
 
     echo "$EXPE" > /tmp/validation_graph_expe.out
 }
@@ -92,5 +80,5 @@ main () {
 
 # We need the location of the expe to backup the log.
 EXPE=$(cat /tmp/validation_graph_expe.out)
-cp /tmp/validation_graph.log "$EXPE/scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
+cp /tmp/validation_graph.log "scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
 
