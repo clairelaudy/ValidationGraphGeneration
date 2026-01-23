@@ -78,9 +78,11 @@ main () {
     echo "$EXPE" > /tmp/validation_graph_expe.out
 }
 
-{ time main $*; } 2>&1 | tee /tmp/validation_graph.log
+time main $*
 
-# We need the location of the expe to backup the log.
-EXPE=$(cat /tmp/validation_graph_expe.out)
-cp /tmp/validation_graph.log "scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
+# { time main $*; } 2>&1 | tee /tmp/validation_graph.log
+
+# # We need the location of the expe to backup the log.
+# EXPE=$(cat /tmp/validation_graph_expe.out)
+# cp /tmp/validation_graph.log "scen-${1}_nb-${2}_seed-${3}_expe-${4}.log"
 
