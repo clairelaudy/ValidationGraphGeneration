@@ -1,9 +1,12 @@
 #!/bin/sh
+# To be ran from the experiment directory.
+# Not from the source repository.
 
 EXPE=$(date -Iseconds | sed s/:/_/g)
 if [[ -n "$1" ]] ; then
     EXPE=$1
 fi
+mkdir -p $EXPE
 echo "Output directory: $EXPE" >&2
 cd $EXPE
 

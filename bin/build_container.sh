@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+# To be ran from the experiments directory.
+# Not from the source repository.
 
 set -e
 set -o pipefail
