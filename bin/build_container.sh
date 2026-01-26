@@ -22,7 +22,7 @@ function git_archive()
     echo $name.tar.xz
 }
 
-EXPE=$(pwd)
+EXPE="$(pwd)"
 
 # Go to the repository
 cd $(dirname $0)/..

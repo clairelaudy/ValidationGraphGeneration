@@ -10,9 +10,9 @@ mkdir -p $EXPE
 echo "Output directory: $EXPE" >&2
 cd $EXPE
 
-VGG_BIN=$(dirname $0)
+VGG_BIN="../$(dirname $0)"
 
-for i in $(seq 10 10000 100000) ; do
+for i in $(seq 1000 50000 500000) ; do
     sbatch --job-name=tso_$i \
         --error=tso_n${i}_s%j.log \
         --output=tso_n${i}_s%j.out \
