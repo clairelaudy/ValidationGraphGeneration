@@ -132,9 +132,7 @@ if __name__ == "__main__":
 	#create nf male to be fathers individuals
 	incr = '0'
 	for n in range(int(args.nb_persons)):
-		try:
-			p, df, incr = generate_person(fake = fake, df_data = df, accept_partner = True, age_min=10, age_max=40, last_name=None, incr=incr)
-			
+		p, df, incr = generate_person(fake = fake, df_data = df, accept_partner = True, age_min=10, age_max=40, last_name=None, incr=incr)
 
 	print(df, file=sys.stderr)
 	dir = os.path.dirname(args.output_file_name)
