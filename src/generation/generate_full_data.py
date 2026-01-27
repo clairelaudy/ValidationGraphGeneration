@@ -38,11 +38,20 @@ def generate_person(
 	age_min:int ,
 	age_max:int ,
 	last_name:str ,
+	incr:str,
 	) -> (dict, pd.DataFrame):
 
+	suffix = '_'+incr
+	
 	if age_max > 0 :
 		age_min=max(age_min, 0)
-		id = str(fake.unique.random_int(min=111111, max=999999))
+		try:
+			id = str(fake.unique.random_int(min=11111111, max=99999999))+suffix
+		except faker.exception.UniquenessException:
+			fake.unique.clear()
+			incr = str(int(incr)+1)
+			suffix = '_'+incr
+			id = str(fake.unique.random_int(min=11111111, max=99999999))+suffix
 
 		#generate name, age, genre:
 		age = random.randint(age_min, age_max)
@@ -97,8 +106,8 @@ def generate_person(
 				}
 
 		df_data = pd.concat([df_data, pd.DataFrame([person])], ignore_index=True)
-		return person, df_data
-	return None, df_data
+		return person, df_data, incr
+	return None, df_data, incr
 
 if __name__ == "__main__":
 
@@ -121,8 +130,11 @@ if __name__ == "__main__":
 	p=None
 
 	#create nf male to be fathers individuals
+	incr = '0'
 	for n in range(int(args.nb_persons)):
-		p, df = generate_person(fake = fake, df_data = df, accept_partner = True, age_min=10, age_max=40, last_name=None)
+		try:
+			p, df, incr = generate_person(fake = fake, df_data = df, accept_partner = True, age_min=10, age_max=40, last_name=None, incr=incr)
+			
 
 	print(df, file=sys.stderr)
 	dir = os.path.dirname(args.output_file_name)
