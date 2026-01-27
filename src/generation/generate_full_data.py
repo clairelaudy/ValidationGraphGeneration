@@ -70,7 +70,7 @@ def generate_person(
 		#Does the person has a partner ?
 		if age>15 and accept_partner and random.choice([True, False]):
 			p_last_name = fake.last_name()
-			partner, df_data = generate_person(fake=fake, df_data=df_data, accept_partner=False, age_min=age_min, age_max = age_max, last_name=p_last_name)
+			partner, df_data, incr = generate_person(fake=fake, df_data=df_data, accept_partner=False, age_min=age_min, age_max = age_max, last_name=p_last_name, incr=incr)
 
 		#randomly decide if the individual (aged more than 20) has child
 		if age > 20 and random.choice(range(2)):
@@ -80,9 +80,9 @@ def generate_person(
 			for new_child in range(nb_children):
 				new_child = None
 				if genre == "male" or partner is None:
-					new_child, df_data = generate_person(fake=fake, df_data=df_data, accept_partner=True, age_min=age-60, age_max = age-20, last_name = last_name)
+					new_child, df_data, incr= generate_person(fake=fake, df_data=df_data, accept_partner=True, age_min=age-60, age_max = age-20, last_name = last_name, incr=incr)
 				else:
-					new_child, df_data = generate_person(fake=fake, df_data=df_data, accept_partner=True, age_min=age-60, age_max = age-20, last_name = partner["last_name"])
+					new_child, df_data, incr = generate_person(fake=fake, df_data=df_data, accept_partner=True, age_min=age-60, age_max = age-20, last_name = partner["last_name"], incr=incr)
 				if new_child is not None:
 					children.append(new_child["id"])
 
