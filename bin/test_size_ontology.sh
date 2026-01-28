@@ -64,7 +64,8 @@ main () {
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
     rm biocypher-out/*/biocypher.ttl
 
-    echo -n "Number of owl:Class: " 1>&2
+    echo "Scenario: $NAME_OF_SCENARIO" 1>&2
+    echo -n  "Number of owl:Class: " 1>&2
     grep -o "a owl:Class" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2
     echo -n "Number of owl:NamedIndividual: " 1>&2
     grep -o "owl:NamedIndividual" "output/$PATH_TO_EXPE/biocypher.ttl" | wc -l 1>&2

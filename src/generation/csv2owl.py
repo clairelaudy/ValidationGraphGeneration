@@ -35,6 +35,8 @@ from pets_transformer import pets_transformer
 
 def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_config):
 
+    logging.getLogger("ontoweaver").setLevel('INFO')
+
     # Load the data from the csv file with the ontoweaver mapping:
     filename_to_mapping = {data_file : mapping_filename}
 
