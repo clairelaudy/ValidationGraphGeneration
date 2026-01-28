@@ -42,7 +42,7 @@ def generate_person(
 	) -> (dict, pd.DataFrame):
 
 	suffix = '_'+incr
-	
+
 	if age_max > 0 :
 		age_min=max(age_min, 0)
 		try:

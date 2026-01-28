@@ -57,6 +57,7 @@ def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_confi
     # Initialize Biocypher in order to have acces to the ontology:
     logging.info('Initialize Biocypher instance...')
 
+    logging.getLogger("biocypher").setLevel('WARNING')
     bc = biocypher.BioCypher(
         biocypher_config_path = biocypher_config,
         schema_config_path = schema_config
