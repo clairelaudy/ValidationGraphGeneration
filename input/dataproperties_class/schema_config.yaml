@@ -8,12 +8,26 @@ person:
         rents_home: bool
         possess_home: bool
 
+cat:
+    represented_as: node
+    label_in_input: cat
+
+dog:
+    represented_as: node
+    label_in_input: dog
+
 isRelative:
     represented_as: edge
     label_in_input: isRelative
     source: person
     target: person
     
+hasPartner:
+    represented_as: edge
+    label_in_input: hasPartner
+    source: person
+    target: person
+
 childOf:
     represented_as: edge
     label_in_input: childOf

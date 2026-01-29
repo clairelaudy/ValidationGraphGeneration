@@ -11,3 +11,6 @@ biocypher:
 owl:
     edge_model: ObjectProperty
     file_format: turtle
+    labels_order: "Ascending" # Default: From more specific to more generic.
+    node_labels_order: "None" # Default: use labels_order.
+    edge_labels_order: "None"
