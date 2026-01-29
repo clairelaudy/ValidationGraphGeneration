@@ -10,6 +10,8 @@ dependencies = [
     "petname",
     "ontoweaver",
     "owlready2",
+    "biocypher",
 ]
 
 [tool.uv.sources]
+biocypher = { path = "../biocypher", editable = true }
