@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 # /// script
 # dependencies = [
 #    "biocypher<1.0.0,>=0.11.0",
@@ -48,6 +48,8 @@ main () {
     mkdir -p $EXPE
     cd $EXPE
 
+    uv add --editable /Users/claudy/work/projects/biocypher
+    
     #Generate learning data and skg
     echo "Generate CSV data for learning skg" 1>&2
     uv run $VGG/src/generation/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
@@ -55,10 +57,12 @@ main () {
     echo "** Populate the ontology with data" 1>&2
     mkdir -p $EXPE/input
     cp -r "$VGG/input/$NAME_OF_SCENARIO" $EXPE/input/
-    $VGG/src/generation/csv2owl.py "output/$PATH_TO_EXPE/data.csv" \
-        "input/$NAME_OF_SCENARIO/mapping.yaml" \
-        "input/$NAME_OF_SCENARIO/biocypher_config.yaml" \
-        "input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+    echo $PYTHONPATH
+    uv run $VGG/src/generation/csv2owl.py --log-level INFO \
+        output/$PATH_TO_EXPE/data.csv \
+        input/$NAME_OF_SCENARIO/mapping.yaml \
+        input/$NAME_OF_SCENARIO/biocypher_config.yaml \
+        input/$NAME_OF_SCENARIO/schema_config.yaml
 
     echo "** Copy Biocypher output to working directory" 1>&2
     cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
