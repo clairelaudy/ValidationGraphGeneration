@@ -58,6 +58,10 @@ main () {
     mkdir -p $EXPE/input
     cp -r "$VGG/input/$NAME_OF_SCENARIO" $EXPE/input/
     echo $PYTHONPATH
+    echo "*********config utilisee :"
+    echo input/$NAME_OF_SCENARIO/mapping.yaml 
+    echo input/$NAME_OF_SCENARIO/biocypher_config.yaml 
+    echo input/$NAME_OF_SCENARIO/schema_config.yaml 
     uv run $VGG/src/generation/csv2owl.py --log-level INFO \
         output/$PATH_TO_EXPE/data.csv \
         input/$NAME_OF_SCENARIO/mapping.yaml \

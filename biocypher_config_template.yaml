@@ -1,6 +1,6 @@
 
 biocypher:
-    debug: true
+    debug: false
     offline: true
     dbms: biopathnet
 

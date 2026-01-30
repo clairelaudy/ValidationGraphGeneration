@@ -16,26 +16,26 @@ transformers:
     - map:
         columns:
             - first_name
-        to_property:
-            - first_name
+        to_property: first_name
+        for_object: person
     - map:
         columns:
             - last_name
-        to_property:
-            - last_name
+        to_property: last_name
+        for_object: person
     - map:
         columns:
             - age
-        to_property:
-            - age
+        to_property: age
+        for_object: person
     - map:
         columns:
             - tenant
-        to_property:
-            - rents_home
+        to_property: rents_home
+        for_object: person
     - map:
         columns:
             - owner
-        to_property:
-            - possess_home
+        to_property: possess_home
+        for_object: person
                 

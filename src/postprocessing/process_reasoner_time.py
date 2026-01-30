@@ -36,7 +36,10 @@ if __name__ == "__main__":
     parser.add_argument("output_csv")
     args = parser.parse_args()
 
-    command = ["tail", "-n", "12"]
+    cat_cmd = ["cat"]
+    suppr_warnings_cmd = ["grep", "-v", "WARNING"]
+    pipe_cmd = ["|"]
+    tail_cmd = ["tail", "-n", "12"]
     expe_dir = args.expe_dir
 
     # data = pd.DataFrame()
@@ -53,8 +56,21 @@ if __name__ == "__main__":
             if f.endswith(".log"):
                 file = expe_dir+f
                 try:
-                    single_command=command+[file]
-                    result = subprocess.check_output(single_command)
+                    # single_command=tail_cmd+file
+                    # print(single_command)
+                    # result = subprocess.check_output(single_command)
+                    # print(file)
+                    # cat = subprocess.Popen(cat_cmd+file, check=True, stdout=subprocess.PIPE)
+                    # print(cat.stdout)
+                    # suppr_warnings = subprocess.Popen(suppr_warnings_cmd, stdin=cat.stdout, stdout=subprocess.PIPE)
+                    # print(suppr_warnings.stdout)
+                    # tail = subprocess.check_output(tail_cmd, stdin=suppr_warnings.stdout, stdout=subprocess.PIPE)
+                    # print(tail)
+                    # result, _ = tail.communicate()
+
+                    result = subprocess.check_output(f"cat {file} | grep -v WARNING | tail -n 12", shell=True)
+                    logging.info(result)
+                    
                 except subprocess.CalledProcessError as cpe:
                     result = cpe.output
                 finally:
@@ -62,7 +78,6 @@ if __name__ == "__main__":
                     data = {}
                     for line in result.splitlines():
                         lines.append(line.decode())
-                    #pprint(lines)
                     data['scenario'] = lines[0].partition("Scenario: ")[2]
                     nb_classes = int(lines[1].partition(" owl:Class: ")[2])
                     data['nb of classes'] = nb_classes
