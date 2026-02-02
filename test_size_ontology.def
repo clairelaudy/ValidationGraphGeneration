@@ -44,15 +44,16 @@ From: ubuntu:24.04
 
 %environment
     export APPTAINER_SHELL=/bin/bash
-    export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/bin"
+    export PATH="$PATH:/root/.local/bin"
     export UV_CACHE_DIR=/tmp/uv_cache
 
 %runscript
     cd /output/
-    test_size_ontology.sh $*
+    uv run /ValidationGraphGeneration/bin/test_size_ontology.sh $*
 
 %test
     ls /ValidationGraphGeneration
+    ls /ValidationGraphGeneration/pyproject.toml
     ls /ValidationGraphGeneration/src/generation/generate_full_data.py
     ls /ValidationGraphGeneration/bin/../src/generation/generate_full_data.py
     ls /ValidationGraphGeneration/input/simplest/ontology.ttl
