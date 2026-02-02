@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 # /// script
 # dependencies = [
 #    "biocypher<1.0.0,>=0.11.0",
@@ -48,8 +48,6 @@ main () {
     mkdir -p $EXPE
     cd $EXPE
 
-    uv add --editable /Users/claudy/work/projects/biocypher
-    
     #Generate learning data and skg
     echo "Generate CSV data for learning skg" 1>&2
     uv run $VGG/src/generation/generate_full_data.py --seed $SEED ${NUMBER_OF_LEARNING_DATA} "output/${PATH_TO_EXPE}/data.csv"
