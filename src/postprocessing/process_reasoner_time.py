@@ -16,6 +16,7 @@ from os import walk
 from pprint import pprint
 import re
 import logging
+import glob
 
 def find_time(s):
     list_times = re.findall(r'[0-9]+', s)
@@ -48,9 +49,10 @@ if __name__ == "__main__":
 
     files = []
     result = ""
-    for (dirpath, dirnames, filenames) in walk(expe_dir):
-        files.extend(filenames)
-        break
+#    for (dirpath, dirnames, filenames) in walk(expe_dir):
+#        files.extend(filenames)
+#        break
+    files = glob.glob('./**/*', recursive=True)
     for f in files:
         try:
             if f.endswith(".log"):
