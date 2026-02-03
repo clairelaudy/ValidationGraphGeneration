@@ -92,11 +92,14 @@ if __name__ == "__main__":
         except:
             logging.warning(f"Couldn't read results from `{f}'")
 
-    data = pd.DataFrame(row_list)
+    data = pd.DataFrame(row_list).sort_values(['scenario', 'nb of nodes'], ascending=True)
     #print("datadframe = ")
     pprint(data)
     data.to_csv("".join([args.expe_dir, "test.csv"]))
-    data.plot(kind='scatter', x='nb of nodes', y='reasoning time')
+    fig, ax = plt.subplots()
+    for key, grp in data.groupby(["scenario"]):
+        axm = grp.plot(ax=ax, kind='line', x='nb of nodes', y='reasoning time', label=key)
+    plt.legend(loc='best')
     plt.show()
     plt.savefig("".join([args.expe_dir, "test.svg"]))
 
