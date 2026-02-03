@@ -19,5 +19,5 @@ module load apptainer
 
 export APPTAINER_BINDPATH=$(pwd):/output/
 
-apptainer run $CONTAINER parent_class $SIZE $SLURM_JOB_ID
+apptainer run $CONTAINER simplest $SIZE $SLURM_JOB_ID
 
