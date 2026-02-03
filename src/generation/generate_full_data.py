@@ -30,6 +30,8 @@ from faker import Faker
 from faker.providers import person
 
 import petname
+import itertools
+getid = itertools.count().__next__
 
 def generate_person(
 	fake,
@@ -91,7 +93,7 @@ def generate_person(
 		if random.choice([True, False]):
 			nb_pets = random.choice(range(3))
 			for p in range(nb_pets):
-				pets.append(''.join([petname.Generate(2, '_'), "(", random.choice(["cat", "dog"]), ")"]))
+				pets.append(''.join([petname.Generate(2, '_'), str(getid()), "(", random.choice(["cat", "dog"]), ")"]))
 
 		person = {"id": id ,
 				"first_name": first_name ,
