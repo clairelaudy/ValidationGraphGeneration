@@ -43,16 +43,7 @@ BIN_DIR=$(realpath $(dirname $0))
 # mkdir -p $EXPE
 # cd $EXPE
 
-#git clone ../.. .
-# git clone ../.. graphGeneration
-# git clone ../../../biocypher biocypher
-
-# export PYTHONPATH="$PYTHONPATH:$HOME/work/projects/biocypher/:$HOME/work/projects/ontoweaver/src/:$HOME/work/projects/ValidationGraphGeneration/src/"
-# #export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/bin/"
-# export PATH="$PATH:$HOME/work/projects/ontoweaver/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/bin/:$HOME/work/projects/ValidationGraphGeneration/$EXPE/graphGeneration/src/generation/"
-
 # uv sync
-
 
 
 #Generate learning data and skg

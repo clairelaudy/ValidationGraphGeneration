@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 # /// script
 # dependencies = [
 #    "pooch<2.0.0,>=1.7.0",
@@ -29,13 +29,16 @@ NUMBER_OF_VALIDATION_DATA=$3
 NUMBER_OF_TEST_DATA=$4
 EDGE_TO_LEARN=$5
 NUMBER_OF_ABLATION=$6
+SEED=$7
+FIXED_EXPE=$8
 
 PATH_TO_EXPE="${NAME_OF_SCENARIO}/${NUMBER_OF_LEARNING_DATA}/${NUMBER_OF_VALIDATION_DATA}/${NUMBER_OF_TEST_DATA}/${EDGE_TO_LEARN}/${NUMBER_OF_ABLATION}"
 
 if [ $# -ne 6 ] ; then
-echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_learning_data> <nb_of_persons_in_validation_graph> <nb_of_persons_in_test_graph> <edge_to_learn> <nb_of_ablation_in_test_graph>" 1>&2
+echo "Usage: $0 <name_of_scenario> <nb_of_persons_in_learning_data> <nb_of_persons_in_validation_graph> <nb_of_persons_in_test_graph> <edge_to_learn> <nb_of_ablation_in_test_graph> " 1>&2
   exit 2
 fi
+
 
 BIN_DIR=$(realpath $(dirname $0))
 
@@ -45,8 +48,8 @@ mkdir -p $EXPE
 cd $EXPE
 
 
-git clone $BIN_DIR/.. graphGeneration
-git clone $BIN_DIR/../../biocypher biocypher
+#git clone $BIN_DIR/.. graphGeneration
+#git clone $BIN_DIR/../../biocypher biocypher
 
 #uv sync
 
