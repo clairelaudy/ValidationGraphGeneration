@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 # /// script
 # dependencies = [
 #    "biocypher<1.0.0,>=0.11.0",

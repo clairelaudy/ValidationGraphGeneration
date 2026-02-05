@@ -1,7 +1,7 @@
 #!/bin/sh
 # /// script
 # dependencies = [
-#    "biocypher<1.0.0,>=0.11.0",
+#    "ontoweaver",
 #    "pooch<2.0.0,>=1.7.0",
 #    "pandas<3.0.0,>=2.3.1",
 #    "numpy<3.0.0,>=2.2.4",
@@ -23,9 +23,10 @@ NAME_OF_SCENARIO=$1
 PATH_TO_EXPE=$2
 TYPE_OF_GRAPH=$3
 
+BIN_DIR=$(realpath $(dirname $0))
 
 echo "** Populate the ontology with data" 1>&2
-csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "graphGeneration/input/$NAME_OF_SCENARIO/mapping.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+$BIN_DIR/../src/generation/csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "graphGeneration/input/$NAME_OF_SCENARIO/mapping.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config.yaml" "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
 echo "** Copy Biocypher output to working directory" 1>&2
 cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"
@@ -38,7 +39,7 @@ chmod a-w "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl"
 cat graphGeneration/biocypher_config_template.yaml | sed "s,{{ONTOLOGY_URL}},output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl," > graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml
 
 echo "** Export owl ontology to BioPathNet format" 1>&2
-import_file=$(ontoweave "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl":automap -s "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" -C "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml")
+import_file=$(uv run ontoweave "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl":automap -s "graphGeneration/input/$NAME_OF_SCENARIO/schema_config.yaml" -C "graphGeneration/input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml")
 out=$(dirname $import_file)
 
 echo "OUTPUT Semantic Network :" 1>&2

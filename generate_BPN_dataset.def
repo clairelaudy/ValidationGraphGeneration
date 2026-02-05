@@ -1,0 +1,66 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%setup
+    mkdir -p $APPTAINER_ROOTFS/ValidationGraphGeneration/src
+    cp -r src/generation $APPTAINER_ROOTFS/ValidationGraphGeneration/src/
+    cp -r bin   $APPTAINER_ROOTFS/ValidationGraphGeneration/
+    cp -r input $APPTAINER_ROOTFS/ValidationGraphGeneration/
+
+%files
+    pyproject.toml /ValidationGraphGeneration/
+
+%post
+    # Update the available packages list.
+    apt -y update
+    # And add the "universe" repository (allow to install many more software).
+    apt -y install software-properties-common time
+    # add-apt-repository universe
+    # apt -y update
+    # Update the operating systems (install last versions with bugfixes).
+    # apt -y dist-upgrade
+
+    # Install dependencies for your project.
+    apt -y install git curl python3 bash wget openjdk-11-jre
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+	cd $APPTAINER_ROOTFS/
+	git clone https://github.com/clairelaudy/biocypher.git
+
+    mkdir -p /output/
+    chmod -R a+rw /output/
+
+    cd /ValidationGraphGeneration/
+    echo "export PATH=/root/.local/bin:\$PATH" >> $APPTAINER_ENVIRONMENT
+    UV_PROJECT_ENVIRONMENT=$(pwd)/.venv /root/.local/bin/uv sync --no-cache
+
+    cd /root/.local/bin/
+    wget https://github.com/ontodev/robot/releases/download/v1.9.8/robot.jar
+    wget https://raw.githubusercontent.com/ontodev/robot/master/bin/robot
+    chmod a+x ./robot
+
+    # Clean-up of the APT cache (will lighten the container).
+    # apt -y purge software-properties-common curl
+    # apt -y --purge autoremove
+    # apt -y autoclean
+    # apt clean
+
+%environment
+    export APPTAINER_SHELL=/bin/bash
+    export PATH="$PATH:/root/.local/bin"
+    export UV_CACHE_DIR=/tmp/uv_cache
+	export PYTHONPATH="APPTAINER_ROOTFS/biocypher/"
+
+%runscript
+    cd /output/
+    uv run /ValidationGraphGeneration/bin/prepare_non_independant_data_expe.sh $*
+
+%test
+    ls /ValidationGraphGeneration
+    ls /ValidationGraphGeneration/pyproject.toml
+    ls /ValidationGraphGeneration/src/generation/generate_full_data.py
+    ls /ValidationGraphGeneration/bin/../src/generation/generate_full_data.py
+    ls /ValidationGraphGeneration/input/simplest/ontology.ttl
+
+%labels
+    Author Claire Laudy
+    Author Johann Dreo
