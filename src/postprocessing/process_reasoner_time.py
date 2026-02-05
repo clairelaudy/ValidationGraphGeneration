@@ -81,6 +81,7 @@ if __name__ == "__main__":
                     for line in result.splitlines():
                         lines.append(line.decode())
                     data['scenario'] = lines[0].partition("Scenario: ")[2]
+                    data['experiment'] = f
                     nb_classes = int(lines[1].partition(" owl:Class: ")[2])
                     data['nb of classes'] = nb_classes
                     nb_indiv = int(lines[2].partition(" owl:NamedIndividual: ")[2])
@@ -88,7 +89,7 @@ if __name__ == "__main__":
                     data['nb of nodes'] = nb_classes+nb_indiv
                 
                     data['reasoning time'] = find_time(lines[6])
-                    data['data gegeration time'] = find_time(lines[9]) 
+                    data['data generation time'] = find_time(lines[9]) 
                 
                     row_list.append(data)
         except:
@@ -97,11 +98,11 @@ if __name__ == "__main__":
     data = pd.DataFrame(row_list).sort_values(['scenario', 'nb of nodes'], ascending=True)
     #print("datadframe = ")
     pprint(data)
-    data.to_csv("".join([args.expe_dir, "test.csv"]))
+    data.to_csv("".join([args.expe_dir, "result.csv"]))
     fig, ax = plt.subplots()
     for key, grp in data.groupby(["scenario"]):
         axm = grp.plot(ax=ax, kind='line', x='nb of nodes', y='reasoning time', label=key)
     plt.legend(loc='best')
+    plt.savefig("".join([args.expe_dir, "result.svg"]), format="svg")
     plt.show()
-    plt.savefig("".join([args.expe_dir, "test.svg"]))
 
