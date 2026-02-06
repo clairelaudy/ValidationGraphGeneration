@@ -93,6 +93,10 @@ owl:NamedIndividual rdf:type owl:Class ;
             rdfs:label "parent" ;
             rdf:type :Role . 
 
+:sibling rdf:type owl:NamedIndividual ;
+            rdfs:label "parent" ;
+            rdf:type :Role . 
+
 
 #################################################################
 #    Rules

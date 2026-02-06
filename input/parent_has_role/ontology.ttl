@@ -70,6 +70,9 @@ owl:NamedIndividual rdf:type owl:Class ;
 :parent rdf:type owl:NamedIndividual ;
             rdf:type :Role . 
 
+:sibling rdf:type owl:NamedIndividual ;
+            rdf:type :Role . 
+
 
 #################################################################
 #    Rules
