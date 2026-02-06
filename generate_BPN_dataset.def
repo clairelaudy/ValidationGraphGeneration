@@ -23,8 +23,9 @@ From: ubuntu:24.04
     # Install dependencies for your project.
     apt -y install git curl python3 bash wget openjdk-11-jre
     curl -LsSf https://astral.sh/uv/install.sh | sh
-	cd $APPTAINER_ROOTFS/
-	git clone https://github.com/clairelaudy/biocypher.git
+    cd /
+    git clone https://github.com/clairelaudy/biocypher.git --branch biopathnet_back-end 
+    
 
     mkdir -p /output/
     chmod -R a+rw /output/
@@ -46,9 +47,9 @@ From: ubuntu:24.04
 
 %environment
     export APPTAINER_SHELL=/bin/bash
-    export PATH="$PATH:/root/.local/bin"
+    export PATH="$PATH:/root/.local/bin:/ValidationGraphGeneration/.venv/bin/"
     export UV_CACHE_DIR=/tmp/uv_cache
-	export PYTHONPATH="APPTAINER_ROOTFS/biocypher/"
+    export PYTHONPATH="/biocypher/"
 
 %runscript
     cd /output/

@@ -42,8 +42,8 @@ fi
 
 BIN_DIR=$(realpath $(dirname $0))
 
-#EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
-EXPE=experiments/xxx
+EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+#EXPE=experiments/xxx
 mkdir -p $EXPE
 cd $EXPE
 
