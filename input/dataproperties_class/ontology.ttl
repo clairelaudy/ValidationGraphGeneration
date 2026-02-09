@@ -134,7 +134,7 @@
         rdfs:label "Parent" ;
         owl:equivalentClass [ owl:intersectionOf ( :Person
                                                    [ rdf:type owl:Restriction ;
-                                                     owl:onProperty :parent_of ;
+                                                     owl:onProperty :parentOf ;
                                                      owl:someValuesFrom :Person
                                                    ]
                                                  ) ;
