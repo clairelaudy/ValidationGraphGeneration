@@ -28,6 +28,12 @@
         rdfs:domain :Person ;
         rdfs:range :Person .
 
+:hasPet rdf:type owl:ObjectProperty ;
+        rdfs:label "hasPet" ;
+        rdfs:subClassOf :Biocypherroot ;
+        rdfs:domain :Person ;
+        rdfs:range :Animal .
+
 :childOf rdf:type owl:ObjectProperty ;
         rdfs:label "childOf" ;
         rdfs:subPropertyOf :isRelative ;
@@ -54,6 +60,12 @@
         rdfs:domain :Person ;
         rdfs:range :Person .
 
+:hasRole rdf:type owl:ObjectProperty ;
+            rdfs:label "hasRole" ;
+            rdfs:domain :Person ;
+            rdfs:range :Role ;
+            rdfs:subClassOf :Biocypherroot .
+
 
 #################################################################
 #    Classes
@@ -61,28 +73,38 @@
 
 
 :Female rdf:type owl:Class ;
-        rdfs:label "Female" ;
+        rdfs:label "female" ;
         rdfs:subClassOf :Person .
 
 
 :Male rdf:type owl:Class ;
-      rdfs:label "Male" ;
+      rdfs:label "male" ;
       rdfs:subClassOf :Person .
 
 
 :Person rdf:type owl:Class ;
-        rdfs:label "Person" ;
+        rdfs:label "person" ;
         rdfs:subClassOf :Biocypherroot .
 
 
 :Role rdf:type owl:Class ;
-      rdfs:label "Role" ;
+      rdfs:label "role" ;
       rdfs:subClassOf :Biocypherroot .
 
 
-owl:NamedIndividual rdf:type owl:Class ;
-                   rdfs:subClassOf :Biocypherroot ;
-                   rdfs:label "NamedIndividual" .
+:Animal rdf:type owl:Class ;
+        rdfs:label "animal" ;
+        rdfs:subClassOf :Biocypherroot .
+
+:Cat rdf:type owl:Class ;
+     rdfs:label "cat" ;
+     rdfs:subClassOf :Animal .
+
+
+:Dog rdf:type owl:Class ;
+     rdfs:label "dog" ;
+     rdfs:subClassOf :Animal .
+
 
 
 #################################################################
@@ -94,7 +116,7 @@ owl:NamedIndividual rdf:type owl:Class ;
             rdf:type :Role . 
 
 :sibling rdf:type owl:NamedIndividual ;
-            rdfs:label "parent" ;
+            rdfs:label "sibling" ;
             rdf:type :Role . 
 
 
@@ -126,7 +148,7 @@ owl:NamedIndividual rdf:type owl:Class ;
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :has_role ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasRole ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                        <http://www.w3.org/2003/11/swrl#argument2> :parent
                                                      ] ;

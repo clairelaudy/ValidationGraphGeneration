@@ -30,8 +30,8 @@
          rdfs:label "childOf" .
 
 
-:has_role rdf:type owl:ObjectProperty ;
-            rdfs:label "has_role" ;
+:hasRole rdf:type owl:ObjectProperty ;
+            rdfs:label "hasRole" ;
             rdfs:domain :Person ;
             rdfs:range :Role ;
             rdfs:subClassOf :Biocypherroot .
@@ -68,9 +68,11 @@ owl:NamedIndividual rdf:type owl:Class ;
 #################################################################
 
 :parent rdf:type owl:NamedIndividual ;
+            rdfs:label "parent" ;
             rdf:type :Role . 
 
 :sibling rdf:type owl:NamedIndividual ;
+            rdfs:label "sibling" ;
             rdf:type :Role . 
 
 
@@ -102,7 +104,7 @@ owl:NamedIndividual rdf:type owl:Class ;
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :has_role ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasRole ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                        <http://www.w3.org/2003/11/swrl#argument2> :parent
                                                      ] ;

@@ -116,22 +116,22 @@
 #################################################################
 
 :Animal rdf:type owl:Class ;
-        rdfs:label "Animal" ;
+        rdfs:label "animal" ;
         rdfs:subClassOf :Biocypherroot .
 
 
 :Cat rdf:type owl:Class ;
-     rdfs:label "Cat" ;
+     rdfs:label "cat" ;
      rdfs:subClassOf :Animal .
 
 
 :Dog rdf:type owl:Class ;
-     rdfs:label "Dog" ;
+     rdfs:label "dog" ;
      rdfs:subClassOf :Animal .
 
 
 :Parent rdf:type owl:Class ;
-        rdfs:label "Parent" ;
+        rdfs:label "parent" ;
         owl:equivalentClass [ owl:intersectionOf ( :Person
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parentOf ;
@@ -144,6 +144,6 @@
 
 
 :Person rdf:type owl:Class ;
-        rdfs:label "Person" ;
+        rdfs:label "person" ;
         rdfs:subClassOf :Biocypherroot .
 

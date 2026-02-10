@@ -69,6 +69,12 @@
         rdfs:domain :Male ;
         rdfs:range :Person .
 
+:hasRole rdf:type owl:ObjectProperty ;
+            rdfs:label "hasRole" ;
+            rdfs:domain :Person ;
+            rdfs:range :Role ;
+            rdfs:subClassOf :Biocypherroot .
+
 
 #################################################################
 #    Data properties
@@ -181,7 +187,7 @@
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :has_role ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasRole ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                        <http://www.w3.org/2003/11/swrl#argument2> :parent
                                                      ] ;

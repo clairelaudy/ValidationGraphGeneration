@@ -2,9 +2,18 @@ person:
     represented_as: node
     label_in_input: person
 
+role:
+    represented_as: node
+    label_in_input: role
+
 parentOf:
     represented_as: edge
     label_in_input: parentOf
     source: person
     target: person
 
+hasRole:
+    represented_as: edge
+    label_in_input: hasRole
+    source: person
+    target: role

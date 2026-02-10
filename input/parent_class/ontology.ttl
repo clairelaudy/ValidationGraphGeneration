@@ -47,6 +47,6 @@
 
 
 :Person rdf:type owl:Class ;
-        rdfs:label "Person" ;
+        rdfs:label "person" ;
         rdfs:subClassOf :Biocypherroot .
 

@@ -8,6 +8,10 @@ person:
         rentsHome: bool
         possessHome: bool
 
+role:
+    represented_as: node
+    label_in_input: role
+
 male:
     represented_as: node
     label_in_input: male
@@ -53,4 +57,9 @@ hasPet:
     label_in_input: hasPet
     source: person
     target: animal
-
+    
+hasRole:
+    represented_as: edge
+    label_in_input: hasRole
+    source: person
+    target: role

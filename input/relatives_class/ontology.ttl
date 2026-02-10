@@ -61,7 +61,7 @@
 
 
 :Parent rdf:type owl:Class ;
-        rdfs:label "Parent" ;
+        rdfs:label "parent" ;
         owl:equivalentClass [ owl:intersectionOf ( :Person
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :parentOf ;
@@ -74,16 +74,16 @@
 
 
 :Female rdf:type owl:Class ;
-        rdfs:label "Female" ;
+        rdfs:label "female" ;
         rdfs:subClassOf :Person .
 
 
 :Male rdf:type owl:Class ;
-      rdfs:label "Male" ;
+      rdfs:label "male" ;
       rdfs:subClassOf :Person .
 
 
 :Person rdf:type owl:Class ;
-        rdfs:label "Person" ;
+        rdfs:label "person" ;
         rdfs:subClassOf :Biocypherroot .
 

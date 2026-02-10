@@ -30,7 +30,7 @@ echo $PWD
 cp -r "$BIN_DIR/../input/$NAME_OF_SCENARIO" input/
 
 echo "** Populate the ontology with data" 1>&2
-$BIN_DIR/../src/generation/csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "$BIN_DIR/../input/$NAME_OF_SCENARIO/mapping.yaml" "$BIN_DIR/../input/$NAME_OF_SCENARIO/biocypher_config.yaml" "$BIN_DIR/../input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
+$BIN_DIR/../src/generation/csv2owl.py "output/$PATH_TO_EXPE/data_$TYPE_OF_GRAPH.csv" "$BIN_DIR/../input/$NAME_OF_SCENARIO/ontology.ttl" "$BIN_DIR/../input/$NAME_OF_SCENARIO/mapping.yaml" "$BIN_DIR/../input/$NAME_OF_SCENARIO/biocypher_config.yaml" "$BIN_DIR/../input/$NAME_OF_SCENARIO/schema_config.yaml" #--register src/pets_transformer.py --debug
 
 echo "** Copy Biocypher output to working directory" 1>&2
 cp biocypher-out/*/biocypher.ttl  "output/$PATH_TO_EXPE/biocypher.ttl"

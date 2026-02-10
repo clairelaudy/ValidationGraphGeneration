@@ -1,7 +1,12 @@
 row:
     map:
-        column: id
-        to_subject: person
+        id_from_column: id
+        match_type_from_column: genre
+        match:
+          - male:
+              to_subject: male
+          - female:
+              to_subject: female
 transformers:
     - split:
         column: children

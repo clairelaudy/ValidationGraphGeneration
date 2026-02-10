@@ -33,19 +33,23 @@ import ontoweaver
 
 from pets_transformer import pets_transformer
 
-def export_csv_2_owl(data_file, mapping_filename, biocypher_config, schema_config, log_level):
+def export_csv_2_owl(data_file, owl_file, mapping_filename, biocypher_config, schema_config, log_level):
 
     logging.getLogger("ontoweaver").setLevel(log_level)
 
     # Load the data from the csv file with the ontoweaver mapping:
     filename_to_mapping = {data_file : mapping_filename}
+    owl_mapping = {owl_file : "automap"}
 
     logging.info(f"Load CSV data from `{data_file}'")
     logging.info(f"With mapping from `{mapping_filename}'")
 
     ontoweaver.transformer.register(pets_transformer)
 
-    nodes, edges = ontoweaver.extract(filename_to_mapping)
+    csv_nodes, csv_edges = ontoweaver.extract(filename_to_mapping)
+    owl_nodes, owl_edges = ontoweaver.extract(owl_mapping)
+    nodes = csv_nodes+owl_nodes
+    edges = csv_edges+owl_edges
     bc_nodes, bc_edges = ontoweaver.ow2bc(nodes), ontoweaver.ow2bc(edges)
 
     # Detect potential duplicates to be fused:
@@ -88,12 +92,13 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("data_filename")
+    parser.add_argument("owl_filename")
     parser.add_argument("mapping_filename")
     parser.add_argument("biocypher_config")
     parser.add_argument("schema_config")
     parser.add_argument("-l", "--log-level", default="WARNING", choices=["ERROR", "WARNING", "INFO", "DEBUG"])
     args = parser.parse_args()
     # print(args, file=sys.stderr)
-    export_csv_2_owl(args.data_filename, args.mapping_filename, args.biocypher_config, args.schema_config, args.log_level)
+    export_csv_2_owl(args.data_filename, args.owl_filename, args.mapping_filename, args.biocypher_config, args.schema_config, args.log_level)
 
 
