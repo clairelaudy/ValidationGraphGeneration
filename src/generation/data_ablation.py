@@ -43,7 +43,8 @@ if __name__ == "__main__":
     parser.add_argument("relation_to_delete")
     parser.add_argument("nb_of_deletion")
     parser.add_argument("initial_file")
-    parser.add_argument("output_file")
+    parser.add_argument("output_graph_file")
+    parser.add_argument("output_test_relations_file")
     asked = parser.parse_args()
     
     nb_del = int(asked.nb_of_deletion)
@@ -52,20 +53,23 @@ if __name__ == "__main__":
     
     with open(asked.initial_file, 'r') as fin:
         with open(asked.output_file, 'w') as fout:
-            input_lines = fin.readlines()
-            random.shuffle(input_lines)
+            with open(asked.output_file, 'w') as fout_rel:
+                input_lines = fin.readlines()
+                random.shuffle(input_lines)
 
-            index = 0
-            while nb_del > 0 and index < len(input_lines):
-                input = input_lines[index].strip().split()
-                assert len(input)==3
-                if asked.relation_to_delete in input[1]:
-                    nb_del -= 1
-                    test_lines.append(input_lines[index])
-                else:
-                    output_lines.append(input_lines[index])
-                index += 1
-            output_lines.extend(input_lines[index:])
+                index = 0
+                while nb_del > 0 and index < len(input_lines):
+                    input = input_lines[index].strip().split()
+                    assert len(input)==3
+                    if asked.relation_to_delete in input[1]:
+                        nb_del -= 1
+                        test_lines.append(input_lines[index])
+                    else:
+                        output_lines.append(input_lines[index])
+                    index += 1
+                output_lines.extend(input_lines[index:])
 
-            for line in output_lines:
-                fout.write(f"{line}")
+                for line in output_lines:
+                    fout.write(f"{line}")
+                for line in test_lines:
+                    fout_rel.write(f"{line}")

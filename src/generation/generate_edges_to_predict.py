@@ -32,22 +32,12 @@ from itertools import combinations
 # Produces:
 #   - a tsv test file for BioPathNet with the edges that should be queried for prediction by BPN.
 
-
-if __name__ == "__main__":
-
-    parser= argparse.ArgumentParser()
-    parser.add_argument("relation")
-    parser.add_argument("initial_file")
-    parser.add_argument("output_file")
-    asked = parser.parse_args()
-
-    relation = asked.relation
-    test_lines = []
+def generate_all_combinations(relation, initial_file, output_file):
     output_lines = []
 
     nodes = set()
-    with open(asked.initial_file, 'r') as fin:
-        with open(asked.output_file, 'w') as fout:
+    with open(initial_file, 'r') as fin:
+        with open(output_file, 'w') as fout:
             input_lines = fin.readlines()
             for line in input_lines:
                 s, r, t = line.split()
@@ -60,3 +50,13 @@ if __name__ == "__main__":
                 (f,s) = c
                 fout.write('\t'.join([f, relation, s]))
                 fout.write("\n")
+
+if __name__ == "__main__":
+
+    parser= argparse.ArgumentParser()
+    parser.add_argument("relation")
+    parser.add_argument("initial_file")
+    parser.add_argument("output_file")
+    asked = parser.parse_args()
+
+    generate_all_combinations(asked.relation, asked.input_file, asked.output_file)

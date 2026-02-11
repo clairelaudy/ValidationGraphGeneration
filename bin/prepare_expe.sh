@@ -67,7 +67,7 @@ $BIN_DIR/generate_one_skg.sh ${NAME_OF_SCENARIO} ${PATH_TO_EXPE} "test"
 mv "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/graph_test_gt.txt"
  
 echo "** Ablation of data in the test skg" 1>&2
-$BIN_DIR/../src/generation/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt"
+$BIN_DIR/../src/generation/data_ablation.py $EDGE_TO_LEARN $NUMBER_OF_ABLATION "output/${PATH_TO_EXPE}/graph_test_gt.txt" "output/${PATH_TO_EXPE}/graph_test.txt" "output/${PATH_TO_EXPE}/test_relations.txt"
 
 #Remove duplicates in brg.txt entity_types.txt and entity_names.txt
 
