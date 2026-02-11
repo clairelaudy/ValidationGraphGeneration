@@ -12,15 +12,27 @@ cd $EXPE
 
 VGG_BIN="../$(dirname $0)"
 
-NAME_OF_SCENARIO=simplest
+declare -A scenario
+scenario['simplest']='hasChild'
+scenario['parent_has_role']='hasRole'
+scenario['relatives_has_role']='hasRole'
+#scenario['dataproperties_has_role']='hasRole'
+#scenario['parent_class']='is_a'
+#scenario['relatives_class']='is_a'
+#scenario['dtaproperties_class']='is_a'
+
 NUMBER_OF_LEARNING_DATA=100
 NUMBER_OF_VALIDATION_DATA=10
 NUMBER_OF_TEST_DATA=10
-EDGE_TO_LEARN=hasChild
-NUMBER_OF_ABLATION=2
+#EDGE_TO_LEARN=hasChild
+NUMBER_OF_ABLATION=1
 
-sbatch --job-name=gBPN_${NAME_OF_SCENARIO} \
-    --error=gBPN_n${NAME_OF_SCENARIO}_s%j.log \
-    --output=gBPN_n${NAME_OF_SCENARIO}_s%j.out \
-    $VGG_BIN/run_generate_BPN_dataset.sh ${NAME_OF_SCENARIO} ${NUMBER_OF_LEARNING_DATA} ${NUMBER_OF_VALIDATION_DATA} ${NUMBER_OF_TEST_DATA} ${EDGE_TO_LEARN} ${NUMBER_OF_ABLATION} 
+for SCENARIO in "${!scenario[@]}"
+do
+    EDGE_TO_LEARN=${scenario["$SCENARIO"]}
+    sbatch --job-name=gBPN_${SCENARIO} \
+    	--error=gBPN_n${s}_s%j.log \
+    	--output=gBPN_n${s}_s%j.out \
+    	$VGG_BIN/run_generate_BPN_dataset.sh ${SCENARIO} ${NUMBER_OF_LEARNING_DATA} ${NUMBER_OF_VALIDATION_DATA} ${NUMBER_OF_TEST_DATA} ${EDGE_TO_LEARN} ${NUMBER_OF_ABLATION} 
+done
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 # /// script
 # dependencies = [
 #    "pooch<2.0.0,>=1.7.0",
@@ -42,7 +42,7 @@ fi
 
 BIN_DIR=$(realpath $(dirname $0))
 
-EXPE=experiments/$(date -Iseconds|sed "s/:/_/g")
+EXPE=experiments/${NAME_OF_SCENARIO}/$(date -Iseconds|sed "s/:/_/g")
 #EXPE=experiments/xxx
 mkdir -p $EXPE
 cd $EXPE
