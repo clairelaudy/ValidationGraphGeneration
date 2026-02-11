@@ -52,8 +52,8 @@ if __name__ == "__main__":
     output_lines = []
     
     with open(asked.initial_file, 'r') as fin:
-        with open(asked.output_file, 'w') as fout:
-            with open(asked.output_file, 'w') as fout_rel:
+        with open(asked.output_graph_file, 'w') as fout:
+            with open(asked.output_test_relations_file, 'w') as fout_rel:
                 input_lines = fin.readlines()
                 random.shuffle(input_lines)
 
