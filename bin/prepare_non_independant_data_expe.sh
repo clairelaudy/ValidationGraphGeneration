@@ -65,6 +65,8 @@ cat "output/${PATH_TO_EXPE}/graph_learning.txt" >> "output/${PATH_TO_EXPE}/graph
 cat "output/${PATH_TO_EXPE}/graph_learning.txt" "output/${PATH_TO_EXPE}/graph_validation.txt" > "output/${PATH_TO_EXPE}/ground_truth_dup.txt"
  
 
+# Add the nodes and edges of the test graph EXCEPT THE EDGES TO BE PREDICTED to the ground truth graph
+cat "output/${PATH_TO_EXPE}/graph_test.txt" >> "output/${PATH_TO_EXPE}/graph_learning_dup.txt"
 # Add the nodes and edges of the test graph to the ground truth graph
 cat "output/${PATH_TO_EXPE}/graph_test_gt.txt" >> "output/${PATH_TO_EXPE}/ground_truth_dup.txt"
 

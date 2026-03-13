@@ -2,7 +2,7 @@ import logging
 import ontoweaver
 from ontoweaver import types as owtypes
 
-class pets_transformer(ontoweaver.transformer.Transformer):
+class pets_transformer(ontoweaver.base.Transformer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 #        self.declare = ontoweaver.base.Declare(raise_errors = kwargs["raise_errors"])

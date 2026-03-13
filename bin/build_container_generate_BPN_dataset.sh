@@ -27,7 +27,7 @@ EXPE="$(pwd)"
 # Go to the repository
 cd $(dirname $0)/..
 
-if [[ ! -f "test_size_ontology.def" ]] ; then
+if [[ ! -f "generate_BPN_dataset.def" ]] ; then
     echo "ERROR: the given path does not point to a ValidationGraphGeneration repository." >&2
     exit 2
 fi

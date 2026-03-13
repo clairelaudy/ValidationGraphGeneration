@@ -44,9 +44,9 @@ def generate_all_combinations(relation, initial_file, output_file):
                 nodes.add(s)
                 nodes.add(t)
 
-            combinations = list(combinations(list(nodes), 2))
+            comb = list(combinations(list(nodes), 2))
 
-            for c in combinations:
+            for c in comb:
                 (f,s) = c
                 fout.write('\t'.join([f, relation, s]))
                 fout.write("\n")
@@ -59,4 +59,4 @@ if __name__ == "__main__":
     parser.add_argument("output_file")
     asked = parser.parse_args()
 
-    generate_all_combinations(asked.relation, asked.input_file, asked.output_file)
+    generate_all_combinations(asked.relation, asked.initial_file, asked.output_file)
