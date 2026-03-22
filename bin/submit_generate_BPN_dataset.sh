@@ -13,7 +13,7 @@ cd $EXPE
 VGG_BIN="../$(dirname $0)"
 
 declare -A scenario
-scenario['simplest']='hasChild'
+scenario['simplest']='childOf'
 scenario['parent_has_role']='hasRole'
 scenario['relatives_has_role']='hasRole'
 #scenario['dataproperties_has_role']='hasRole'
