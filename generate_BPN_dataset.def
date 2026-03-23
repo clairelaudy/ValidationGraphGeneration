@@ -56,6 +56,7 @@ From: ubuntu:24.04
 
 %runscript
     cd /output/
+    # uv run /ValidationGraphGeneration/bin/prepare_expe.sh $*
     uv run /ValidationGraphGeneration/bin/prepare_non_independant_data_expe.sh $*
 
 %test
