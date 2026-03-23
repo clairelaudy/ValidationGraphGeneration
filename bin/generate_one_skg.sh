@@ -41,10 +41,10 @@ echo "** Launch reasoner to infer new information" 1>&2
 robot reason --reasoner hermit --input "output/$PATH_TO_EXPE/biocypher.ttl" --output "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl" --axiom-generators "PropertyAssertion EquivalentObjectProperty InverseObjectProperties ObjectPropertyCharacteristic SubObjectProperty" 
 chmod a-w "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl"
 
-cat $BIN_DIR/../input/biocypher_config_template.yaml | sed -e "s,{{ONTOLOGY_URL}},output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl," -e "s,{{RELATION}},$RELATION_TO_LEARN" > input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml
+cat $BIN_DIR/../input/biocypher_config_template.yaml | sed -e "s,{{ONTOLOGY_URL}},output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl," -e "s,{{RELATION}},$RELATION_TO_LEARN," > input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml
 
 echo "** Export owl ontology to BioPathNet format" 1>&2
-import_file=$(uv run ontoweave "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl":automap -s "$BIN_DIR/../input/$NAME_OF_SCENARIO/schema_config.yaml" -C "input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml")
+import_file=$(uv run ontoweave "output/$PATH_TO_EXPE/reasoned_$TYPE_OF_GRAPH.ttl":automap -s "$BIN_DIR/../input/$NAME_OF_SCENARIO/schema_config.yaml" -C "input/$NAME_OF_SCENARIO/biocypher_config_2_bioPathNet.yaml" --debug)
 echo "show output of ontoweave: "
 out=$(dirname $import_file)
 
