@@ -34,6 +34,12 @@ childOf:
     source: person
     target: person
 
+siblingOf:
+    represented_as: edge
+    label_in_input: siblingOf
+    source: person
+    target: person
+
 parentOf:
     represented_as: edge
     label_in_input: parentOf

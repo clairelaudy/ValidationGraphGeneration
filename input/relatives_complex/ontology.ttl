@@ -194,8 +194,6 @@
 
 :p rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
-:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
-
 :c1 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :c2 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
