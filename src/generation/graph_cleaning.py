@@ -23,6 +23,7 @@
 
 import argparse
 import re
+import logging
 
 # Cleaning of the graph before testing with BioPathNet.
 # This post processing is temporally needed because the reasonner generates too many links.
@@ -44,6 +45,8 @@ if __name__ == "__main__":
     parser.add_argument("initial_file")
     parser.add_argument("output_graph_file")
     asked = parser.parse_args()
+
+    logger = logging.getLogger()
     
     output_lines = []
     
@@ -51,14 +54,20 @@ if __name__ == "__main__":
         with open(asked.output_graph_file, 'w') as fout:
             input_lines = fin.readlines()
 
-            exp = re.compile("(?P<source>)\t(?P<relation>)\t(?P<target>)")
-                        
-            for line in input_lines
+            exp = re.compile(" *(?P<source>)\t(?P<relation>)\t(?P<target>) *")
+            for line in input_lines:
+                logger.info(f"line = {line}")
                 match = exp.match(line)
-                s = match.group("source")
-                t = match.group("target")
-                if s!=t:
+                logger.info(f"match = {match}")
+                if match:
+                    s = match.group("source")
+                    t = match.group("target")
+                    if s!=t:
+                        logger.info(f"adding {line}")
+                        output_lines.append(line)                
+                else:
+                    logger.info(f"adding {line} with no match")
                     output_lines.append(line)                
-
+                        
             for line in output_lines:
                 fout.write(f"{line}")
