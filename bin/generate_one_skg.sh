@@ -53,13 +53,11 @@ $BIN_DIR/../src/generation/graph_cleaning.py "$out/skg.txt" "$out/skg_clean.txt"
 $BIN_DIR/../src/generation/graph_cleaning.py "$out/brg.txt" "$out/brg_clean.txt"
 
 echo "OUTPUT Semantic Network :" 1>&2
-cp "$out/skg_clean.txt" "output/$PATH_TO_EXPE/graph_${TYPE_OF_GRAPH}_clean.txt"
-cp "$out/skg.txt" "output/$PATH_TO_EXPE/graph_$TYPE_OF_GRAPH.txt"
+cp "$out/skg_clean.txt" "output/$PATH_TO_EXPE/graph_${TYPE_OF_GRAPH}.txt"
 #cat "output/$PATH_TO_SCENARIO/semantic_graph.txt"
 
 echo "OUTPUT brg.txt :" 1>&2
-cat "$out/brg_clean.txt" >> "output/$PATH_TO_EXPE/brg_clean.txt"
-cat "$out/brg.txt" >> "output/$PATH_TO_EXPE/brg.txt"
+cat "$out/brg_clean.txt" >> "output/$PATH_TO_EXPE/brg.txt"
 #cat "output/$PATH_TO_SCENARIO/entity_types.txt"
 
 echo "OUTPUT entity_types.txt :" 1>&2

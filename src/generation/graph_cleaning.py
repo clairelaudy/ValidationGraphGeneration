@@ -54,19 +54,17 @@ if __name__ == "__main__":
         with open(asked.output_graph_file, 'w') as fout:
             input_lines = fin.readlines()
 
-            exp = re.compile(" *(?P<source>)\t(?P<relation>)\t(?P<target>) *")
+            exp = re.compile(r'(?P<source>.*)[ \t]+(?P<relation>.*)[ \t]+(?P<target>.*)\n')
             for line in input_lines:
-                logger.info(f"line = {line}")
-                match = exp.match(line)
-                logger.info(f"match = {match}")
+                match = exp.search(line)
                 if match:
                     s = match.group("source")
                     t = match.group("target")
                     if s!=t:
-                        logger.info(f"adding {line}")
+                        logger.debug(f"adding {line}")
                         output_lines.append(line)                
                 else:
-                    logger.info(f"adding {line} with no match")
+                    logger.debug(f"adding {line} with no match")
                     output_lines.append(line)                
                         
             for line in output_lines:
