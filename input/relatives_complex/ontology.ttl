@@ -8,175 +8,128 @@
 
 <http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3> rdf:type owl:Ontology .
 
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
-<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+:Biocypherroot rdf:type owl:Class ;
+        rdfs:label "Biocypherroot" .
 
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/childOf
-:childOf rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :isRelative ;
-         owl:inverseOf :parentOf ;
-         rdfs:domain :Person ;
-         rdfs:range :Person ;
-         rdfs:label "childOf" .
+:isRelative rdf:type owl:ObjectProperty ;
+        rdfs:label "isRelative" ;
+        rdfs:subClassOf :Biocypherroot ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/daugtherOf
-:daugtherOf rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :childOf ;
-            rdfs:domain :Female ;
-            rdfs:range :Person ;
-            rdfs:label "daugtherOf" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/grandParentOf
-:grandParentOf rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf :isRelative .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/hasPartner
 :hasPartner rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :isRelative ;
-            rdfs:domain :Person ;
-            rdfs:range :Person ;
-            rdfs:label "hasPartner" .
+        rdfs:label "hasPartner" ;
+        rdfs:subPropertyOf :isRelative ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/hasPet
 :hasPet rdf:type owl:ObjectProperty ;
+        rdfs:label "hasPet" ;
+        rdfs:subClassOf :Biocypherroot ;
         rdfs:domain :Person ;
         rdfs:range :Animal .
 
+:childOf rdf:type owl:ObjectProperty ;
+        rdfs:label "childOf" ;
+        rdfs:subPropertyOf :isRelative ;
+        owl:inverseOf :parentOf ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/hasRole
-:hasRole rdf:type owl:ObjectProperty ;
-         rdfs:domain :Person ;
-         rdfs:range :Role .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/isRelative
-:isRelative rdf:type owl:ObjectProperty ;
-            rdfs:domain :Person ;
-            rdfs:range :Person .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parentOf
-:parentOf rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :isRelative ;
-          rdfs:domain :Person ;
-          rdfs:range :Person ;
-          rdfs:label "parentOf" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/siblingOf
-:siblingOf rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf :isRelative ;
-           rdfs:domain :Person ;
-           rdfs:range :Person ;
-           rdfs:label "siblingOf" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/sonOf
 :sonOf rdf:type owl:ObjectProperty ;
-       rdfs:subPropertyOf :childOf ;
-       rdfs:domain :Male ;
-       rdfs:range :Person ;
-       rdfs:label "sonOf" .
+        rdfs:label "sonOf" ;
+        rdfs:subPropertyOf :childOf ;
+        rdfs:domain :Male ;
+        rdfs:range :Person .
+
+:daugtherOf rdf:type owl:ObjectProperty ;
+        rdfs:label "daugtherOf" ;
+        rdfs:subPropertyOf :childOf ;
+        rdfs:domain :Female ;
+        rdfs:range :Person .
+
+:parentOf rdf:type owl:ObjectProperty ;
+        rdfs:label "parentOf" ;
+        rdfs:subPropertyOf :isRelative ;
+        owl:inverseOf :childOf ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
+
+:grandParentOf rdf:type owl:ObjectProperty ;
+        rdfs:label "grandParentOf" ;
+        rdfs:subPropertyOf :isRelative ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
+
+:siblingOf rdf:type owl:ObjectProperty ;
+        rdfs:label "siblingOf" ;
+        rdfs:subPropertyOf :isRelative ;
+        rdfs:domain :Person ;
+        rdfs:range :Person .
+
+:hasRole rdf:type owl:ObjectProperty ;
+            rdfs:label "hasRole" ;
+            rdfs:domain :Person ;
+            rdfs:range :Role ;
+            rdfs:subClassOf :Biocypherroot .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Animal
-:Animal rdf:type owl:Class ;
-        rdfs:subClassOf :Biocypherroot ;
-        rdfs:label "animal" .
 
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Biocypherroot
-:Biocypherroot rdf:type owl:Class ;
-               rdfs:label "Biocypherroot" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Cat
-:Cat rdf:type owl:Class ;
-     rdfs:subClassOf :Animal ;
-     rdfs:label "cat" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Dog
-:Dog rdf:type owl:Class ;
-     rdfs:subClassOf :Animal ;
-     rdfs:label "dog" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Female
 :Female rdf:type owl:Class ;
-        rdfs:subClassOf :Person ;
-        rdfs:label "female" .
+        rdfs:label "female" ;
+        rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Male
 :Male rdf:type owl:Class ;
-      rdfs:subClassOf :Person ;
-      rdfs:label "male" .
+      rdfs:label "male" ;
+      rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Person
 :Person rdf:type owl:Class ;
-        rdfs:subClassOf :Biocypherroot ;
-        rdfs:label "person" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/Role
-:Role rdf:type owl:Class ;
-      rdfs:subClassOf :Biocypherroot ;
-      rdfs:label "role" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/hasPet
-:hasPet rdf:type owl:Class ;
-            rdfs:label "hasPet" ;
+        rdfs:label "person" ;
         rdfs:subClassOf :Biocypherroot .
 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/isRelative
-:isRelative rdf:type owl:Class ;
-            rdfs:label "isRelative" ;
-            rdfs:subClassOf :Biocypherroot .
+:Role rdf:type owl:Class ;
+      rdfs:label "role" ;
+      rdfs:subClassOf :Biocypherroot .
+
+
+:Animal rdf:type owl:Class ;
+        rdfs:label "animal" ;
+        rdfs:subClassOf :Biocypherroot .
+
+:Cat rdf:type owl:Class ;
+     rdfs:label "cat" ;
+     rdfs:subClassOf :Animal .
+
+
+:Dog rdf:type owl:Class ;
+     rdfs:label "dog" ;
+     rdfs:subClassOf :Animal .
+
 
 
 #################################################################
 #    Individuals
 #################################################################
 
+:parent rdf:type owl:NamedIndividual ;
+            rdfs:label "parent" ;
+            rdf:type :Role . 
 
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/parent
-:parent rdf:type owl:NamedIndividual ,
-                 :Role ;
-        rdfs:label "parent" .
-
-
-###  http://www.semanticweb.org/claudy/ontologies/2025/10/untitled-ontology-3/sibling
-:sibling rdf:type owl:NamedIndividual ,
-                  :Role ;
-         rdfs:label "sibling" .
-
-
-[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean
-] .
-
-[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean
- ] .
+:sibling rdf:type owl:NamedIndividual ;
+            rdfs:label "sibling" ;
+            rdf:type :Role . 
 
 
 #################################################################
@@ -184,6 +137,8 @@
 #################################################################
 
 :p rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :c1 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
@@ -194,6 +149,7 @@
 :p2 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :p3 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
 
 [ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
    rdfs:comment "" ;

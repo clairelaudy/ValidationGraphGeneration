@@ -46,6 +46,12 @@ parentOf:
     source: person
     target: person
 
+grandParentOf:
+    represented_as: edge
+    label_in_input: grandParentOf
+    source: person
+    target: person
+
 hasPartner:
     represented_as: edge
     label_in_input: hasPartner
