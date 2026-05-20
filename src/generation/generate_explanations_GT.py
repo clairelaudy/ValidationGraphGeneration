@@ -33,14 +33,17 @@ config = {
 # config["neo4j"]["passwd"] = "neo4j"
 # config["neo4j"]["auth"] = (config["neo4j"]["user"], config["neo4j"]["passwd"])
 
-
-find_couples_query = "MATCH (p1:Person)-[SiblingOf]->(p2:Person)" \
-                    "RETURN p1,p2"
 queries = {
     "siblingOf": "MATCH (p2:Person)<-[:ParentOf]-(parent:Person)-[:ParentOf]->(p1:Person) " \
                  "WHERE (p1:Person)-[:SiblingOf]->(p2:Person) " \
                  "AND p1<>p2 " \
                  "RETURN DISTINCT p1, p2, parent",
+    "grandParentOf": "MATCH (p1:Person)-[:ParentOf]->(p:Person)-[:ParentOf]->(p2:Person) " \
+                 "WHERE (p1:Person)-[:GrandParentOf]->(p2:Person) " \
+                 "RETURN DISTINCT p1, p2, p",
+    "childOf": "MATCH (p1:Person)-[:ParentOf]->(p2:Person) " \
+                 "WHERE (p2:Person)-[:ChildOf]->(p1:Person) " \
+                 "RETURN DISTINCT p1, p2",
 }
 
 explanations_template = {
@@ -69,6 +72,53 @@ explanations_template = {
             "r2": {
                 "rtype": "parentOf",
                 "args": ["{parent_id}", "{p2_id}"],
+                "weigth": None,
+            },
+        },
+    },
+    "grandParentOf": {
+        "concepts": {
+            "{p1_id}": {
+                "ctype": "Person",
+                "weigth": None,
+            },
+            "{p2_id}": {
+                "ctype": "Person",
+                "weigth": None,
+            },
+            "{p_id}": {
+                "ctype": "Person",
+                "weigth": None,
+            },
+        },
+        "relations": {
+            "r1": {
+                "rtype": "parentOf",
+                "args": ["{p1_id}", "{p_id}"],
+                "weigth": None,
+            },
+            "r2": {
+                "rtype": "parentOf",
+                "args": ["{p_id}", "{p2_id}"],
+                "weigth": None,
+            },
+        },
+    },
+    "childOf": {
+        "concepts": {
+            "{p1_id}": {
+                "ctype": "Person",
+                "weigth": None,
+            },
+            "{p2_id}": {
+                "ctype": "Person",
+                "weigth": None,
+            },
+        },
+        "relations": {
+            "r1": {
+                "rtype": "parentOf",
+                "args": ["{p1_id}", "{p2_id}"],
                 "weigth": None,
             },
         },
